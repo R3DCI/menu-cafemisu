@@ -55,7 +55,6 @@
         opacity: 0.8;
     }
 
-    /* Bouton pastille */
     .btn-add {
         background: rgba(168,117,85,0.15);
         border: 2px solid #A87555;
@@ -99,7 +98,6 @@
         font-weight: bold;
     }
 
-    /* Panier sticky */
     #cart-bar {
         position: fixed;
         left: 0;
@@ -112,27 +110,132 @@
         font-size: 1.3rem;
         font-weight: 600;
         display: none;
-        z-index: 999;
+        z-index: 900;
     }
 
     #cart-bar:hover { opacity: 0.9; cursor: pointer; }
 
+    /* ---------------- MODAL PANIER ---------------- */
+
+    #cart-modal-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.55);
+        z-index: 998;
+    }
+
+    #cart-modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 85%;
+        max-width: 420px;
+        padding: 25px;
+        background: #F9F5F1;
+        border-radius: 14px;
+        border: 2px solid #A87555;
+        transform: translate(-50%, -50%);
+        z-index: 999;
+        color: #A87555;
+        animation: fadeInModal 0.25s ease;
+    }
+
+    @keyframes fadeInModal {
+        from { opacity: 0; transform: translate(-50%, -48%); }
+        to   { opacity: 1; transform: translate(-50%, -50%); }
+    }
+
+    #cart-modal h3 {
+        font-size: 1.8rem;
+        margin: 0 0 20px;
+        text-align: center;
+    }
+
+    #cart-items {
+        max-height: 260px;
+        overflow-y: auto;
+        margin-bottom: 20px;
+        padding-right: 5px;
+    }
+
+    .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(168,117,85,0.25);
+    }
+
+    .cart-name {
+        font-size: 1.15rem;
+        font-weight: 600;
+    }
+
+    .cart-controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .cart-btn {
+        width: 28px;
+        height: 28px;
+        background: transparent;
+        border: 2px solid #A87555;
+        color: #A87555;
+        border-radius: 50%;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .cart-total {
+        font-size: 1.3rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    #cart-whatsapp-btn {
+        width: 100%;
+        padding: 12px;
+        background: #A87555;
+        color: #F9F5F1;
+        border: none;
+        font-size: 1.2rem;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+
+    #cart-close-btn {
+        width: 100%;
+        padding: 10px;
+        background: transparent;
+        border: 2px solid #A87555;
+        color: #A87555;
+        font-size: 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+    }
 </style>
+
 </head>
 
 <body>
 
 <h1>Menu CaféMisu</h1>
 
-<!-- SECTION LATTES -->
+<!-- -------------- SECTIONS MENU -------------- -->
+
 <h2>Les lattés</h2>
 
 <div class="item">
     <span class="name">Iced Americano</span>
     <span class="price">4.000</span>
     <button class="btn-add" onclick="addToCart('Iced Americano', 4000)">
-        <img src="tiramisu-icon.png">
-        <span class="plus">+</span>
+        <img src="tiramisu-icon.png"><span class="plus">+</span>
     </button>
 </div>
 
@@ -140,8 +243,7 @@
     <span class="name">Spanish Iced Latte</span>
     <span class="price">5.500</span>
     <button class="btn-add" onclick="addToCart('Spanish Iced Latte', 5500)">
-        <img src="tiramisu-icon.png">
-        <span class="plus">+</span>
+        <img src="tiramisu-icon.png"><span class="plus">+</span>
     </button>
 </div>
 
@@ -149,92 +251,31 @@
     <span class="name">Iced Coffee Latte</span>
     <span class="price">4.500</span>
     <button class="btn-add" onclick="addToCart('Iced Coffee Latte', 4500)">
-        <img src="tiramisu-icon.png">
-        <span class="plus">+</span>
-    </button>
-</div>
-
-<!-- SECTION MATCHAS -->
-<h2>Les matchas</h2>
-
-<div class="item">
-    <span class="name">Iced Matcha Latte</span>
-    <span class="price">5.500</span>
-    <button class="btn-add" onclick="addToCart('Iced Matcha Latte', 5500)">
         <img src="tiramisu-icon.png"><span class="plus">+</span>
     </button>
 </div>
 
-<div class="item">
-    <span class="name">Coconut Matcha Cloud</span>
-    <span class="price">5.500</span>
-    <button class="btn-add" onclick="addToCart('Coconut Matcha Cloud', 5500)">
-        <img src="tiramisu-icon.png"><span class="plus">+</span>
-    </button>
-</div>
 
-<div class="item">
-    <span class="name">Strawberry Matcha</span>
-    <span class="price">6.500</span>
-    <button class="btn-add" onclick="addToCart('Strawberry Matcha', 6500)">
-        <img src="tiramisu-icon.png"><span class="plus">+</span>
-    </button>
-</div>
 
-<div class="item">
-    <span class="name">Mango Matcha</span>
-    <span class="price">6.500</span>
-    <button class="btn-add" onclick="addToCart('Mango Matcha', 6500)">
-        <img src="tiramisu-icon.png"><span class="plus">+</span>
-    </button>
-</div>
 
-<!-- SECTION TIRAMISU -->
-<h2>Les tiramisus</h2>
+<!-- -------------- MODAL -------------- -->
 
-<div class="item">
-    <span class="name">Spéculos</span>
-    <span class="price">5.500</span>
-    <button class="btn-add" onclick="addToCart('Tiramisu Spéculos', 5500)">
-        <img src="tiramisu-icon.png"><span class="plus">+</span>
-    </button>
-</div>
-
-<div class="item">
-    <span class="name">Ferrero</span>
-    <span class="price">5.500</span>
-    <button class="btn-add" onclick="addToCart('Tiramisu Ferrero', 5500)">
-        <img src="tiramisu-icon.png"><span class="plus">+</span>
-    </button>
-</div>
-
-<div class="item">
-    <span class="name">Bueno</span>
-    <span class="price">5.500</span>
-    <button class="btn-add" onclick="addToCart('Tiramisu Bueno', 5500)">
-        <img src="tiramisu-icon.png"><span class="plus">+</span>
-    </button>
-</div>
-
-<div class="item">
-    <span class="name">Pistache</span>
-    <span class="price">5.500</span>
-    <button class="btn-add" onclick="addToCart('Tiramisu Pistache', 5500)">
-        <img src="tiramisu-icon.png"><span class="plus">+</span>
-    </button>
-</div>
-
-<div class="item">
-    <span class="name">Oreo</span>
-    <span class="price">5.000</span>
-    <button class="btn-add" onclick="addToCart('Tiramisu Oreo', 5000)">
-        <img src="tiramisu-icon.png"><span class="plus">+</span>
-    </button>
-</div>
-
-<!-- PANIER FLUIDE BAS DE PAGE -->
 <div id="cart-bar" onclick="openCart()">
     🛍️ Voir mon panier
+</div>
+
+<div id="cart-modal-overlay"></div>
+
+<div id="cart-modal">
+    <h3>Mon panier</h3>
+    <div id="cart-items"></div>
+
+    <div class="cart-total">
+        Total : <span id="cart-total-price">0 Fcfa</span>
+    </div>
+
+    <button id="cart-whatsapp-btn">Commander via WhatsApp</button>
+    <button id="cart-close-btn">Fermer</button>
 </div>
 
 <script src="app.js"></script>
