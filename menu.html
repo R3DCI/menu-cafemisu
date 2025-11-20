@@ -16,7 +16,6 @@
         margin: 0;
         padding: 0 20px 120px;
         line-height: 1.6;
-
         background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
         background-size: 6px 6px;
     }
@@ -222,43 +221,164 @@
 </style>
 
 </head>
-
 <body>
 
 <h1>Menu CaféMisu</h1>
 
-<!-- -------------- SECTIONS MENU -------------- -->
+
+<!-- =============================================================== -->
+<!-- ======================== LES LATTÉS ============================ -->
+<!-- =============================================================== -->
 
 <h2>Les lattés</h2>
 
-<div class="item">
-    <span class="name">Iced Americano</span>
-    <span class="price">4.000</span>
-    <button class="btn-add" onclick="addToCart('Iced Americano', 4000)">
-        <img src="tiramisu-icon.png"><span class="plus">+</span>
-    </button>
-</div>
+<div class="item"><span class="name">Iced Americano</span><span class="price">4.000</span><button class="btn-add" onclick="addToCart('Iced Americano',4000)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
 
-<div class="item">
-    <span class="name">Spanish Iced Latte</span>
-    <span class="price">5.500</span>
-    <button class="btn-add" onclick="addToCart('Spanish Iced Latte', 5500)">
-        <img src="tiramisu-icon.png"><span class="plus">+</span>
-    </button>
-</div>
+<div class="item"><span class="name">Spanish Iced Latte</span><span class="price">5.500</span><button class="btn-add" onclick="addToCart('Spanish Iced Latte',5500)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
 
-<div class="item">
-    <span class="name">Iced Coffee Latte</span>
-    <span class="price">4.500</span>
-    <button class="btn-add" onclick="addToCart('Iced Coffee Latte', 4500)">
-        <img src="tiramisu-icon.png"><span class="plus">+</span>
-    </button>
-</div>
+<div class="item"><span class="name">Iced Coffee Latte</span><span class="price">4.500</span><button class="btn-add" onclick="addToCart('Iced Coffee Latte',4500)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Lait végétal</span><span class="price">+1000</span><button class="btn-add" onclick="addToCart('Lait végétal',1000)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
 
 
+<!-- =============================================================== -->
+<!-- ======================== MATCHAS =============================== -->
+<!-- =============================================================== -->
+
+<h2>Les matchas</h2>
+
+<div class="item"><span class="name">Iced Matcha Latte</span><span class="price">5.500</span><button class="btn-add" onclick="addToCart('Iced Matcha Latte',5500)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Coconut Matcha Cloud</span><span class="price">5.500</span><button class="btn-add" onclick="addToCart('Coconut Matcha Cloud',5500)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Strawberry Matcha</span><span class="price">6.500</span><button class="btn-add" onclick="addToCart('Strawberry Matcha',6500)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Mango Matcha</span><span class="price">6.500</span><button class="btn-add" onclick="addToCart('Mango Matcha',6500)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Lait végétal</span><span class="price">+1000</span><button class="btn-add" onclick="addToCart('Lait végétal',1000)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
 
 
-<!-- -------------- MODAL -------------- -->
+<!-- =============================================================== -->
+<!-- ======================== FRAPPÉS =============================== -->
+<!-- =============================================================== -->
+
+<h2>Les frappés</h2>
+
+<div class="item"><span class="name">Latté Frappé</span><span class="price">4.500</span><button class="btn-add" onclick="addToCart('Latté Frappé',4500)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Matcha Frappé</span><span class="price">5.500</span><button class="btn-add" onclick="addToCart('Matcha Frappé',5500)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Caramel Frappé</span><span class="price">5.500</span><button class="btn-add" onclick="addToCart('Caramel Frappé',5500)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Lait végétal</span><span class="price">+1000</span><button class="btn-add" onclick="addToCart('Lait végétal',1000)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+
+<!-- =============================================================== -->
+<!-- ==================== BOISSONS CHAUDES ========================== -->
+<!-- =============================================================== -->
+
+<h2>Boissons chaudes</h2>
+
+<div class="item"><span class="name">Café au lait</span><span class="price">3.500</span><button class="btn-add" onclick="addToCart('Café au lait',3500)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Thé</span><span class="price">1.500</span><button class="btn-add" onclick="addToCart('Thé',1500)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Chocolat chaud</span><span class="price">3.500</span><button class="btn-add" onclick="addToCart('Chocolat chaud',3500)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Espresso</span><span class="price">1.000</span><button class="btn-add" onclick="addToCart('Espresso',1000)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Americano</span><span class="price">2.000</span><button class="btn-add" onclick="addToCart('Americano',2000)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Cappuccino</span><span class="price">3.500</span><button class="btn-add" onclick="addToCart('Cappuccino',3500)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Lait végétal</span><span class="price">+1000</span><button class="btn-add" onclick="addToCart('Lait végétal',1000)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+
+<!-- =============================================================== -->
+<!-- ======================== SPECIAUX ============================== -->
+<!-- =============================================================== -->
+
+<h2>Les spéciaux</h2>
+
+<div class="item"><span class="name">Caramel Machiatto</span><span class="price">5.000</span><button class="btn-add" onclick="addToCart('Caramel Machiatto',5000)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Iced Chocolate</span><span class="price">5.000</span><button class="btn-add" onclick="addToCart('Iced Chocolate',5000)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">UBE Latte (igname violette)</span><span class="price">7.000</span><button class="btn-add" onclick="addToCart('UBE Latte',7000)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Lait végétal</span><span class="price">+1000</span><button class="btn-add" onclick="addToCart('Lait végétal',1000)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+
+<!-- =============================================================== -->
+<!-- =================== BOISSONS GAZEUSES ========================== -->
+<!-- =============================================================== -->
+
+<h2>Boissons gazeuses</h2>
+
+<div class="item"><span class="name">Coca</span><span class="price">1.000</span><button class="btn-add" onclick="addToCart('Coca',1000)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Sprite</span><span class="price">1.000</span><button class="btn-add" onclick="addToCart('Sprite',1000)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Fanta</span><span class="price">1.000</span><button class="btn-add" onclick="addToCart('Fanta',1000)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Ice Tea</span><span class="price">1.000</span><button class="btn-add" onclick="addToCart('Ice Tea',1000)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Cody's</span><span class="price">1.000</span><button class="btn-add" onclick="addToCart('Cody\'s',1000)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Redbull</span><span class="price">2.000</span><button class="btn-add" onclick="addToCart('Redbull',2000)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Perrier</span><span class="price">2.000</span><button class="btn-add" onclick="addToCart('Perrier',2000)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Eau</span><span class="price">1.000</span><button class="btn-add" onclick="addToCart('Eau',1000)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+
+<!-- =============================================================== -->
+<!-- ===================== SPÉCIAUX WEEKEND ======================== -->
+<!-- =============================================================== -->
+
+<h2>Spéciaux du weekend</h2>
+
+<div class="item"><span class="name">Tiramisu Cake Latte</span><span class="price">7.000</span><button class="btn-add" onclick="addToCart('Tiramisu Cake Latte',7000)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Tiramisu Cake Matcha Latte</span><span class="price">7.500</span><button class="btn-add" onclick="addToCart('Tiramisu Cake Matcha Latte',7500)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Matcha Banana Pudding</span><span class="price">7.500</span><button class="btn-add" onclick="addToCart('Matcha Banana Pudding',7500)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">LE LATTE XXXL</span><span class="price">25.000</span><button class="btn-add" onclick="addToCart('LE LATTE XXXL',25000)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">LE MATCHA XXXL</span><span class="price">30.000</span><button class="btn-add" onclick="addToCart('LE MATCHA XXXL',30000)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Lait végétal</span><span class="price">+1000</span><button class="btn-add" onclick="addToCart('Lait végétal',1000)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+
+<!-- =============================================================== -->
+<!-- ========================== TIRAMISU ============================ -->
+<!-- =============================================================== -->
+
+<h2>Tiramisu</h2>
+
+<div class="item"><span class="name">Café</span><span class="price">4.000</span><button class="btn-add" onclick="addToCart('Tiramisu Café',4000)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Matcha</span><span class="price">5.000</span><button class="btn-add" onclick="addToCart('Tiramisu Matcha',5000)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Nutella</span><span class="price">5.000</span><button class="btn-add" onclick="addToCart('Tiramisu Nutella',5000)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Fraise</span><span class="price">5.500</span><button class="btn-add" onclick="addToCart('Tiramisu Fraise',5500)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Spéculos</span><span class="price">5.500</span><button class="btn-add" onclick="addToCart('Tiramisu Spéculos',5500)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Ferrero</span><span class="price">5.500</span><button class="btn-add" onclick="addToCart('Tiramisu Ferrero',5500)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Bueno</span><span class="price">5.500</span><button class="btn-add" onclick="addToCart('Tiramisu Bueno',5500)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Pistache</span><span class="price">5.500</span><button class="btn-add" onclick="addToCart('Tiramisu Pistache',5500)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+<div class="item"><span class="name">Oreo</span><span class="price">5.000</span><button class="btn-add" onclick="addToCart('Tiramisu Oreo',5000)"><img src="tiramisu-icon.png"><span class="plus">+</span></button></div>
+
+
+<!-- =================================================================== -->
+<!-- ========================== PANIER & MODAL ========================== -->
+<!-- =================================================================== -->
 
 <div id="cart-bar" onclick="openCart()">
     🛍️ Voir mon panier
