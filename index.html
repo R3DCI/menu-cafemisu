@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CaféMisu — Accueil</title>
 
-  <!-- Typo serif proche du menu -->
+  <!-- Typographie serif élégante proche du menu -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -13,37 +13,61 @@
       margin: 0;
       padding: 0;
       font-family: 'Playfair Display', serif;
-      background-color: #F9F5F1; /* beige du menu */
-      color: #A87555; /* cacao */
+      background-color: #F9F5F1;
+      color: #A87555;
+
+      /* texture papier ultra légère */
+      background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
+      background-size: 6px 6px;
+
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       text-align: center;
+      overflow: hidden;
     }
 
     .container {
-      max-width: 380px;
       padding: 20px;
+      max-width: 380px;
+      opacity: 0;
+      transform: translateY(25px);
+      animation: fadeIn 1.2s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     h1 {
-      font-size: 3.2rem;
+      font-size: 3.4rem;
       font-weight: 700;
       margin-bottom: 10px;
       letter-spacing: 1px;
       color: #A87555;
+      animation: slideDown 1.2s ease forwards;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0);   }
     }
 
     p {
-      font-size: 1.15rem;
-      margin-bottom: 25px;
+      font-size: 1.2rem;
+      margin-bottom: 30px;
       opacity: 0.9;
+      animation: fadeIn 1.6s ease forwards;
     }
 
     .btn {
-      display: inline-block;
-      padding: 15px 34px;
+      display: block;
+      padding: 14px 30px;
+      margin: 12px auto;
       background: #A87555;
       color: #F9F5F1;
       border-radius: 6px;
@@ -51,10 +75,22 @@
       font-weight: 600;
       text-decoration: none;
       transition: 0.25s ease;
+      width: 80%;
     }
 
     .btn:hover {
       background: #8f5d45;
+      transform: translateY(-3px);
+    }
+
+    /* Bouton WhatsApp style cacao/beige */
+    .btn-whatsapp {
+      background: #25D366;
+      color: white;
+    }
+
+    .btn-whatsapp:hover {
+      background: #1eb255;
     }
   </style>
 </head>
@@ -64,10 +100,14 @@
   <div class="container">
     <h1>cafémisu</h1>
 
-    <p>Découvrez notre sélection de boissons & desserts.</p>
+    <p>Découvrez nos desserts & boissons<br>faits avec passion.</p>
 
     <a href="menu/cafemisu_menu.pdf" class="btn">
       📄 Voir le menu
+    </a>
+
+    <a href="https://wa.me/2250716699999" class="btn btn-whatsapp">
+      🛍️ Commander sur WhatsApp
     </a>
   </div>
 
