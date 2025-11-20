@@ -2,10 +2,74 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="refresh" content="0; URL='https://r3dci.github.io/menu-cafemisu/menu/cafemisu_menu.pdf'" />
-  <title>Menu CaféMisu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CaféMisu — Accueil</title>
+
+  <!-- Typo serif proche du menu -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Playfair Display', serif;
+      background-color: #F9F5F1; /* beige du menu */
+      color: #A87555; /* cacao */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 380px;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 3.2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+      color: #A87555;
+    }
+
+    p {
+      font-size: 1.15rem;
+      margin-bottom: 25px;
+      opacity: 0.9;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 15px 34px;
+      background: #A87555;
+      color: #F9F5F1;
+      border-radius: 6px;
+      font-size: 1.15rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: 0.25s ease;
+    }
+
+    .btn:hover {
+      background: #8f5d45;
+    }
+  </style>
 </head>
+
 <body>
-  <p>Redirection vers le menu CaféMisu…</p>
+
+  <div class="container">
+    <h1>cafémisu</h1>
+
+    <p>Découvrez notre sélection de boissons & desserts.</p>
+
+    <a href="menu/cafemisu_menu.pdf" class="btn">
+      📄 Voir le menu
+    </a>
+  </div>
+
 </body>
 </html>
