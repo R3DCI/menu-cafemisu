@@ -15,25 +15,28 @@
         margin: 0;
         padding: 0 20px 160px;
         line-height: 1.65;
+        overflow-x: hidden;
     }
 
     /* ==================== PREMIUM LOADER ==================== */
     #loader {
         position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
+        top: 0; 
+        left: 0;
+        width: 100%; 
+        height: 100%;
         background: #F9F5F1;
         display: flex;
         justify-content: center;
         align-items: center;
         z-index: 2000;
         animation: fadeOut 1s ease forwards;
-        animation-delay: 0.9s;
+        animation-delay: 1.2s;
     }
 
     #loader .circle {
-        width: 55px;
-        height: 55px;
+        width: 60px;
+        height: 60px;
         border-radius: 50%;
         border: 5px solid rgba(168,117,85,0.25);
         border-top-color: #A87555;
@@ -51,10 +54,28 @@
     /* ==================== TITRES ==================== */
     h1 {
         text-align: center;
-        margin-top: 40px;
-        margin-bottom: 10px;
+        margin-top: 42px;
+        margin-bottom: 8px;
         font-size: 2.7rem;
         font-weight: 700;
+    }
+
+    /* ==================== BOUTON RETOUR ==================== */
+    #back-home {
+        display:block;
+        text-align:center;
+        margin-top:10px;
+        margin-bottom:10px;
+        text-decoration:none;
+        font-size:1.1rem;
+        font-weight:600;
+        color:#A87555;
+        opacity:0.75;
+        transition:0.2s;
+    }
+
+    #back-home:hover {
+        opacity:1;
     }
 
     h2 {
@@ -66,23 +87,6 @@
         padding-bottom: 5px;
     }
 
-    /* ==================== BOUTON RETOUR ==================== */
-    #back-home {
-        display:block;
-        text-align:center;
-        margin-top:15px;
-        margin-bottom:-10px;
-        text-decoration:none;
-        font-size:1.1rem;
-        font-weight:600;
-        color:#A87555;
-        opacity:0.8;
-    }
-
-    #back-home:hover {
-        opacity:1;
-    }
-
     /* ==================== ITEMS ==================== */
     .item {
         display: flex;
@@ -90,6 +94,7 @@
         align-items: center;
         padding: 14px 0;
         border-bottom: 1px solid rgba(168,117,85,0.25);
+        position: relative;
     }
 
     .name {
@@ -124,6 +129,24 @@
         background: #F3E5DB;
     }
 
+    /* Animation +1 */
+    .plus-one {
+        position: absolute;
+        color: #A87555;
+        font-size: 1.2rem;
+        font-weight: bold;
+        animation: floatUp 0.8s ease forwards;
+        pointer-events: none;
+        left: 70%;
+        top: -5px;
+    }
+
+    @keyframes floatUp {
+        0% { opacity: 0; transform: translateY(10px); }
+        30% { opacity: 1; }
+        100% { opacity: 0; transform: translateY(-20px); }
+    }
+
     /* ==================== BOUTON FLOTTANT ==================== */
     #floating-cart-btn {
         position: fixed;
@@ -139,11 +162,19 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        transition: transform 0.15s ease;
     }
 
-    #floating-cart-btn img {
-        width: 70px;
-        height: 70px;
+    #floating-cart-btn.shake {
+        animation: shake 0.4s ease;
+    }
+
+    @keyframes shake {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-4px); }
+        50% { transform: translateX(4px); }
+        75% { transform: translateX(-4px); }
+        100% { transform: translateX(0); }
     }
 
     #cart-count {
@@ -161,9 +192,14 @@
         justify-content: center;
         font-size: 14px;
         font-weight: bold;
+        transition: transform 0.2s ease;
     }
 
-    /* ==================== BOTTOM SHEET PREMIUM ==================== */
+    #cart-count.bump {
+        transform: scale(1.3);
+    }
+
+        /* ==================== BOTTOM SHEET PREMIUM ==================== */
     #cart-sheet {
         position: fixed;
         bottom: -100%;
@@ -181,12 +217,18 @@
     }
 
     #sheet-header {
+        position: sticky;
+        top: 0;
+        background: rgba(255,255,255,0.35);
+        backdrop-filter: blur(12px);
+        padding-bottom: 14px;
+        padding-top: 10px;
+        z-index: 10;
         display: flex;
         justify-content: space-between;
         align-items: center;
         font-size: 1.4rem;
         font-weight: 700;
-        margin-bottom: 18px;
     }
 
     .cart-item {
@@ -195,6 +237,13 @@
         align-items: center;
         padding: 14px 0;
         border-bottom: 1px solid rgba(168,117,85,0.25);
+        animation: slideIn 0.3s ease forwards;
+        opacity: 0;
+    }
+
+    @keyframes slideIn {
+        from { opacity: 0; transform: translateX(15px); }
+        to { opacity: 1; transform: translateX(0); }
     }
 
     .qty-controls {
@@ -215,6 +264,11 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        transition: 0.15s ease;
+    }
+
+    .qty-btn:active {
+        transform: scale(0.88);
     }
 
     .total-line {
@@ -223,6 +277,7 @@
         font-weight: 700;
         text-align: right;
         margin-bottom: 10px;
+        transition: 0.2s ease;
     }
 
     #send-whatsapp {
@@ -236,9 +291,17 @@
         font-size: 1.3rem;
         cursor: pointer;
         font-weight: 600;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        transition: 0.2s ease;
     }
 
-    /* BTN FERMER */
+    #send-whatsapp:hover {
+        background: #946a4f;
+    }
+
     .close-sheet {
         margin-top: 14px;
         width: 100%;
@@ -267,74 +330,75 @@
 
 <!-- ========================= LES LATTÉS ========================= -->
 <h2>Les lattés</h2>
-<div class="item"><span class="name">Iced Americano</span><span class="price">4.000</span><div class="add-btn" onclick="addToCart('Iced Americano',4000)">☕</div></div>
-<div class="item"><span class="name">Spanish Iced Latte</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Spanish Iced Latte',5500)">☕</div></div>
-<div class="item"><span class="name">Iced Coffee Latte</span><span class="price">4.500</span><div class="add-btn" onclick="addToCart('Iced Coffee Latte',4500)">☕</div></div>
-<div class="item"><span class="name">Lait végétal</span><span class="price">+1000</span><div class="add-btn" onclick="addToCart('Lait végétal',1000)">☕</div></div>
+<div class="item"><span class="name">Iced Americano</span><span class="price">4.000</span><div class="add-btn" onclick="addToCart('Iced Americano',4000, this)">☕</div></div>
+<div class="item"><span class="name">Spanish Iced Latte</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Spanish Iced Latte',5500, this)">☕</div></div>
+<div class="item"><span class="name">Iced Coffee Latte</span><span class="price">4.500</span><div class="add-btn" onclick="addToCart('Iced Coffee Latte',4500, this)">☕</div></div>
+<div class="item"><span class="name">Lait végétal</span><span class="price">+1000</span><div class="add-btn" onclick="addToCart('Lait végétal',1000, this)">☕</div></div>
 
 <!-- ========================= MATCHAS ========================= -->
 <h2>Les matchas</h2>
-<div class="item"><span class="name">Iced Matcha Latte</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Iced Matcha Latte',5500)">☕</div></div>
-<div class="item"><span class="name">Coconut Matcha Cloud</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Coconut Matcha Cloud',5500)">☕</div></div>
-<div class="item"><span class="name">Strawberry Matcha</span><span class="price">6.500</span><div class="add-btn" onclick="addToCart('Strawberry Matcha',6500)">☕</div></div>
-<div class="item"><span class="name">Mango Matcha</span><span class="price">6.500</span><div class="add-btn" onclick="addToCart('Mango Matcha',6500)">☕</div></div>
-<div class="item"><span class="name">Lait végétal</span><span class="price">+1000</span><div class="add-btn" onclick="addToCart('Lait végétal',1000)">☕</div></div>
+<div class="item"><span class="name">Iced Matcha Latte</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Iced Matcha Latte',5500, this)">☕</div></div>
+<div class="item"><span class="name">Coconut Matcha Cloud</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Coconut Matcha Cloud',5500, this)">☕</div></div>
+<div class="item"><span class="name">Strawberry Matcha</span><span class="price">6.500</span><div class="add-btn" onclick="addToCart('Strawberry Matcha',6500, this)">☕</div></div>
+<div class="item"><span class="name">Mango Matcha</span><span class="price">6.500</span><div class="add-btn" onclick="addToCart('Mango Matcha',6500, this)">☕</div></div>
+<div class="item"><span class="name">Lait végétal</span><span class="price">+1000</span><div class="add-btn" onclick="addToCart('Lait végétal',1000, this)">☕</div></div>
 
 <!-- ========================= FRAPPÉS ========================= -->
 <h2>Les frappés</h2>
-<div class="item"><span class="name">Latté Frappé</span><span class="price">4.500</span><div class="add-btn" onclick="addToCart('Latté Frappé',4500)">☕</div></div>
-<div class="item"><span class="name">Matcha Frappé</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Matcha Frappé',5500)">☕</div></div>
-<div class="item"><span class="name">Caramel Frappé</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Caramel Frappé',5500)">☕</div></div>
-<div class="item"><span class="name">Lait végétal</span><span class="price">+1000</span><div class="add-btn" onclick="addToCart('Lait végétal',1000)">☕</div></div>
+<div class="item"><span class="name">Latté Frappé</span><span class="price">4.500</span><div class="add-btn" onclick="addToCart('Latté Frappé',4500, this)">☕</div></div>
+<div class="item"><span class="name">Matcha Frappé</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Matcha Frappé',5500, this)">☕</div></div>
+<div class="item"><span class="name">Caramel Frappé</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Caramel Frappé',5500, this)">☕</div></div>
+<div class="item"><span class="name">Lait végétal</span><span class="price">+1000</span><div class="add-btn" onclick="addToCart('Lait végétal',1000, this)">☕</div></div>
 
 <!-- ========================= BOISSONS CHAUDES ========================= -->
 <h2>Boissons chaudes</h2>
-<div class="item"><span class="name">Café au lait</span><span class="price">3.500</span><div class="add-btn" onclick="addToCart('Café au lait',3500)">☕</div></div>
-<div class="item"><span class="name">Thé</span><span class="price">1.500</span><div class="add-btn" onclick="addToCart('Thé',1500)">☕</div></div>
-<div class="item"><span class="name">Chocolat chaud</span><span class="price">3.500</span><div class="add-btn" onclick="addToCart('Chocolat chaud',3500)">☕</div></div>
-<div class="item"><span class="name">Espresso</span><span class="price">1.000</span><div class="add-btn" onclick="addToCart('Espresso',1000)">☕</div></div>
-<div class="item"><span class="name">Americano</span><span class="price">2.000</span><div class="add-btn" onclick="addToCart('Americano',2000)">☕</div></div>
-<div class="item"><span class="name">Cappuccino</span><span class="price">3.500</span><div class="add-btn" onclick="addToCart('Cappuccino',3500)">☕</div></div>
-<div class="item"><span class="name">Lait végétal</span><span class="price">+1000</span><div class="add-btn" onclick="addToCart('Lait végétal',1000)">☕</div></div>
+<div class="item"><span class="name">Café au lait</span><span class="price">3.500</span><div class="add-btn" onclick="addToCart('Café au lait',3500, this)">☕</div></div>
+<div class="item"><span class="name">Thé</span><span class="price">1.500</span><div class="add-btn" onclick="addToCart('Thé',1500, this)">☕</div></div>
+<div class="item"><span class="name">Chocolat chaud</span><span class="price">3.500</span><div class="add-btn" onclick="addToCart('Chocolat chaud',3500, this)">☕</div></div>
+
+    <div class="item"><span class="name">Espresso</span><span class="price">1.000</span><div class="add-btn" onclick="addToCart('Espresso',1000, this)">☕</div></div>
+<div class="item"><span class="name">Americano</span><span class="price">2.000</span><div class="add-btn" onclick="addToCart('Americano',2000, this)">☕</div></div>
+<div class="item"><span class="name">Cappuccino</span><span class="price">3.500</span><div class="add-btn" onclick="addToCart('Cappuccino',3500, this)">☕</div></div>
+<div class="item"><span class="name">Lait végétal</span><span class="price">+1000</span><div class="add-btn" onclick="addToCart('Lait végétal',1000, this)">☕</div></div>
 
 <!-- ========================= SPÉCIAUX ========================= -->
 <h2>Les spéciaux</h2>
-<div class="item"><span class="name">Caramel Machiatto</span><span class="price">5.000</span><div class="add-btn" onclick="addToCart('Caramel Machiatto',5000)">☕</div></div>
-<div class="item"><span class="name">Iced Chocolate</span><span class="price">5.000</span><div class="add-btn" onclick="addToCart('Iced Chocolate',5000)">☕</div></div>
-<div class="item"><span class="name">UBE Latte</span><span class="price">7.000</span><div class="add-btn" onclick="addToCart('UBE Latte',7000)">☕</div></div>
-<div class="item"><span class="name">Lait végétal</span><span class="price">+1000</span><div class="add-btn" onclick="addToCart('Lait végétal',1000)">☕</div></div>
+<div class="item"><span class="name">Caramel Machiatto</span><span class="price">5.000</span><div class="add-btn" onclick="addToCart('Caramel Machiatto',5000, this)">☕</div></div>
+<div class="item"><span class="name">Iced Chocolate</span><span class="price">5.000</span><div class="add-btn" onclick="addToCart('Iced Chocolate',5000, this)">☕</div></div>
+<div class="item"><span class="name">UBE Latte</span><span class="price">7.000</span><div class="add-btn" onclick="addToCart('UBE Latte',7000, this)">☕</div></div>
+<div class="item"><span class="name">Lait végétal</span><span class="price">+1000</span><div class="add-btn" onclick="addToCart('Lait végétal',1000, this)">☕</div></div>
 
 <!-- ========================= GAZEUSES ========================= -->
 <h2>Boissons gazeuses</h2>
-<div class="item"><span class="name">Coca</span><span class="price">1.000</span><div class="add-btn" onclick="addToCart('Coca',1000)">☕</div></div>
-<div class="item"><span class="name">Sprite</span><span class="price">1.000</span><div class="add-btn" onclick="addToCart('Sprite',1000)">☕</div></div>
-<div class="item"><span class="name">Fanta</span><span class="price">1.000</span><div class="add-btn" onclick="addToCart('Fanta',1000)">☕</div></div>
-<div class="item"><span class="name">Ice Tea</span><span class="price">1.000</span><div class="add-btn" onclick="addToCart('Ice Tea',1000)">☕</div></div>
-<div class="item"><span class="name">Cody’s</span><span class="price">1.000</span><div class="add-btn" onclick="addToCart('Cody’s',1000)">☕</div></div>
-<div class="item"><span class="name">Redbull</span><span class="price">2.000</span><div class="add-btn" onclick="addToCart('Redbull',2000)">☕</div></div>
-<div class="item"><span class="name">Perrier</span><span class="price">2.000</span><div class="add-btn" onclick="addToCart('Perrier',2000)">☕</div></div>
-<div class="item"><span class="name">Eau</span><span class="price">1.000</span><div class="add-btn" onclick="addToCart('Eau',1000)">☕</div></div>
+<div class="item"><span class="name">Coca</span><span class="price">1.000</span><div class="add-btn" onclick="addToCart('Coca',1000, this)">☕</div></div>
+<div class="item"><span class="name">Sprite</span><span class="price">1.000</span><div class="add-btn" onclick="addToCart('Sprite',1000, this)">☕</div></div>
+<div class="item"><span class="name">Fanta</span><span class="price">1.000</span><div class="add-btn" onclick="addToCart('Fanta',1000, this)">☕</div></div>
+<div class="item"><span class="name">Ice Tea</span><span class="price">1.000</span><div class="add-btn" onclick="addToCart('Ice Tea',1000, this)">☕</div></div>
+<div class="item"><span class="name">Cody’s</span><span class="price">1.000</span><div class="add-btn" onclick="addToCart('Cody’s',1000, this)">☕</div></div>
+<div class="item"><span class="name">Redbull</span><span class="price">2.000</span><div class="add-btn" onclick="addToCart('Redbull',2000, this)">☕</div></div>
+<div class="item"><span class="name">Perrier</span><span class="price">2.000</span><div class="add-btn" onclick="addToCart('Perrier',2000, this)">☕</div></div>
+<div class="item"><span class="name">Eau</span><span class="price">1.000</span><div class="add-btn" onclick="addToCart('Eau',1000, this)">☕</div></div>
 
 <!-- ========================= WEEK-END ========================= -->
 <h2>Spéciaux du weekend</h2>
-<div class="item"><span class="name">Tiramisu Cake Latte</span><span class="price">7.000</span><div class="add-btn" onclick="addToCart('Tiramisu Cake Latte',7000)">☕</div></div>
-<div class="item"><span class="name">Tiramisu Cake Matcha Latte</span><span class="price">7.500</span><div class="add-btn" onclick="addToCart('Tiramisu Cake Matcha Latte',7500)">☕</div></div>
-<div class="item"><span class="name">Matcha Banana Pudding</span><span class="price">7.500</span><div class="add-btn" onclick="addToCart('Matcha Banana Pudding',7500)">☕</div></div>
-<div class="item"><span class="name">LE LATTE XXXL</span><span class="price">25.000</span><div class="add-btn" onclick="addToCart('LE LATTE XXXL',25000)">☕</div></div>
-<div class="item"><span class="name">LE MATCHA XXXL</span><span class="price">30.000</span><div class="add-btn" onclick="addToCart('LE MATCHA XXXL',30000)">☕</div></div>
-<div class="item"><span class="name">Lait végétal</span><span class="price">+1000</span><div class="add-btn" onclick="addToCart('Lait végétal',1000)">☕</div></div>
+<div class="item"><span class="name">Tiramisu Cake Latte</span><span class="price">7.000</span><div class="add-btn" onclick="addToCart('Tiramisu Cake Latte',7000, this)">☕</div></div>
+<div class="item"><span class="name">Tiramisu Cake Matcha Latte</span><span class="price">7.500</span><div class="add-btn" onclick="addToCart('Tiramisu Cake Matcha Latte',7500, this)">☕</div></div>
+<div class="item"><span class="name">Matcha Banana Pudding</span><span class="price">7.500</span><div class="add-btn" onclick="addToCart('Matcha Banana Pudding',7500, this)">☕</div></div>
+<div class="item"><span class="name">LE LATTE XXXL</span><span class="price">25.000</span><div class="add-btn" onclick="addToCart('LE LATTE XXXL',25000, this)">☕</div></div>
+<div class="item"><span class="name">LE MATCHA XXXL</span><span class="price">30.000</span><div class="add-btn" onclick="addToCart('LE MATCHA XXXL',30000, this)">☕</div></div>
+<div class="item"><span class="name">Lait végétal</span><span class="price">+1000</span><div class="add-btn" onclick="addToCart('Lait végétal',1000, this)">☕</div></div>
 
 <!-- ========================= TIRAMISU ========================= -->
 <h2>Tiramisu</h2>
-<div class="item"><span class="name">Café</span><span class="price">4.000</span><div class="add-btn" onclick="addToCart('Tiramisu Café',4000)">☕</div></div>
-<div class="item"><span class="name">Matcha</span><span class="price">5.000</span><div class="add-btn" onclick="addToCart('Tiramisu Matcha',5000)">☕</div></div>
-<div class="item"><span class="name">Nutella</span><span class="price">5.000</span><div class="add-btn" onclick="addToCart('Tiramisu Nutella',5000)">☕</div></div>
-<div class="item"><span class="name">Fraise</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Tiramisu Fraise',5500)">☕</div></div>
-<div class="item"><span class="name">Spéculos</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Tiramisu Spéculos',5500)">☕</div></div>
-<div class="item"><span class="name">Ferrero</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Tiramisu Ferrero',5500)">☕</div></div>
-<div class="item"><span class="name">Bueno</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Tiramisu Bueno',5500)">☕</div></div>
-<div class="item"><span class="name">Pistache</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Tiramisu Pistache',5500)">☕</div></div>
-<div class="item"><span class="name">Oreo</span><span class="price">5.000</span><div class="add-btn" onclick="addToCart('Tiramisu Oreo',5000)">☕</div></div>
+<div class="item"><span class="name">Café</span><span class="price">4.000</span><div class="add-btn" onclick="addToCart('Tiramisu Café',4000, this)">☕</div></div>
+<div class="item"><span class="name">Matcha</span><span class="price">5.000</span><div class="add-btn" onclick="addToCart('Tiramisu Matcha',5000, this)">☕</div></div>
+<div class="item"><span class="name">Nutella</span><span class="price">5.000</span><div class="add-btn" onclick="addToCart('Tiramisu Nutella',5000, this)">☕</div></div>
+<div class="item"><span class="name">Fraise</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Tiramisu Fraise',5500, this)">☕</div></div>
+<div class="item"><span class="name">Spéculos</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Tiramisu Spéculos',5500, this)">☕</div></div>
+<div class="item"><span class="name">Ferrero</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Tiramisu Ferrero',5500, this)">☕</div></div>
+<div class="item"><span class="name">Bueno</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Tiramisu Bueno',5500, this)">☕</div></div>
+<div class="item"><span class="name">Pistache</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Tiramisu Pistache',5500, this)">☕</div></div>
+<div class="item"><span class="name">Oreo</span><span class="price">5.000</span><div class="add-btn" onclick="addToCart('Tiramisu Oreo',5000, this)">☕</div></div>
 
 
 <!-- ========================= BOTTOM SHEET ========================= -->
@@ -351,7 +415,10 @@
         Total : <span id="cart-total">0</span> FCFA
     </div>
 
-    <button id="send-whatsapp" onclick="sendWhatsapp()">Commander sur WhatsApp</button>
+    <button id="send-whatsapp" onclick="sendWhatsapp()">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:22px;">
+        Commander sur WhatsApp
+    </button>
 
     <button class="close-sheet" onclick="closeCart()">Fermer</button>
 
@@ -359,11 +426,134 @@
 
 <!-- BOUTON FLOTTANT -->
 <button id="floating-cart-btn" onclick="openCart()">
-    <img src="tiramisu-icon.png">
+    <img src="tiramisu-icon.png" style="width:70px; height:70px;">
     <span id="cart-count">0</span>
 </button>
 
-<script src="app.js"></script>
+<!-- ========================= JAVASCRIPT PREMIUM ========================= -->
+
+<script>
+let cart = [];
+
+/* ========= AJOUT AVEC ANIMATION +1 ========= */
+function addToCart(name, price, btn) {
+
+    cart.push({ name, price, qty: 1 });
+
+    updateCartCount();
+    renderCartItems();
+    animateCartIcon();
+
+    // Animation +1
+    let plus = document.createElement("div");
+    plus.className = "plus-one";
+    plus.innerText = "+1";
+    btn.parentElement.appendChild(plus);
+
+    setTimeout(() => plus.remove(), 800);
+}
+
+/* ========= PANIER ========= */
+function updateCartCount() {
+    let count = cart.length;
+    let badge = document.getElementById("cart-count");
+
+    badge.innerText = count;
+
+    badge.classList.add("bump");
+    setTimeout(() => badge.classList.remove("bump"), 250);
+}
+
+/* ========= OUVRIR / FERMER ========= */
+function openCart() {
+    document.getElementById("cart-sheet").style.bottom = "0";
+}
+
+function closeCart() {
+    document.getElementById("cart-sheet").style.bottom = "-100%";
+}
+
+/* ========= ANIMATION PANIER ========= */
+function animateCartIcon() {
+    let btn = document.getElementById("floating-cart-btn");
+    btn.classList.add("shake");
+    setTimeout(() => btn.classList.remove("shake"), 400);
+}
+
+/* ========= AFFICHAGE ITEMS ========= */
+function renderCartItems() {
+    let container = document.getElementById("cart-items");
+    container.innerHTML = "";
+
+    cart.forEach((item, i) => {
+        let div = document.createElement("div");
+        div.className = "cart-item";
+        div.style.animationDelay = (i * 0.05) + "s";
+
+        div.innerHTML = `
+            <span style="font-weight:600;">${item.name}</span>
+
+            <div class="qty-controls">
+                <button class="qty-btn" onclick="decreaseQty(${i})">−</button>
+                <span>${item.qty}</span>
+                <button class="qty-btn" onclick="increaseQty(${i})">+</button>
+            </div>
+
+            <span>${item.price * item.qty} FCFA</span>
+        `;
+
+        container.appendChild(div);
+    });
+
+    updateTotal();
+}
+
+/* ========= QUANTITÉ ========= */
+function increaseQty(i) {
+    cart[i].qty++;
+    updateCartCount();
+    renderCartItems();
+}
+
+function decreaseQty(i) {
+    cart[i].qty--;
+    if (cart[i].qty <= 0) cart.splice(i, 1);
+    updateCartCount();
+    renderCartItems();
+}
+
+/* ========= TOTAL ANIMÉ ========= */
+function updateTotal() {
+    let total = cart.reduce((s, it) => s + it.price * it.qty, 0);
+    let totalElem = document.getElementById("cart-total");
+
+    totalElem.style.transform = "scale(1.1)";
+    setTimeout(() => totalElem.style.transform = "scale(1)", 200);
+
+    totalElem.innerText = total.toLocaleString();
+}
+
+/* ========= WHATSAPP ========= */
+function sendWhatsapp() {
+    if (cart.length === 0) {
+        alert("Votre panier est vide.");
+        return;
+    }
+
+    let message = "Bonjour, je souhaiterais commander :\n\n";
+    cart.forEach(item => {
+        message += `• ${item.name} x${item.qty} — ${item.price * item.qty} FCFA\n`;
+    });
+
+    let total = cart.reduce((s, it) => s + it.price * it.qty, 0);
+    message += `\nTotal : ${total.toLocaleString()} FCFA\n\nMerci !`;
+
+    const phone = "2250716699999";
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+    window.location.href = url;
+}
+</script>
 
 </body>
 </html>
