@@ -116,7 +116,7 @@
         font-weight: bold;
     }
 
-    /* BOTTOM SHEET */
+    /* BOTTOM SHEET (corrigé marges gauche/droite) */
     #cart-sheet {
         position: fixed;
         bottom: -100%;
@@ -129,7 +129,13 @@
         border-radius: 18px 18px 0 0;
         transition: 0.35s ease;
         z-index: 1000;
-        padding: 20px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+
+        /* NOUVELLES MARGES */
+        padding-left: 28px;
+        padding-right: 28px;
+
         overflow-y: auto;
     }
 
@@ -148,6 +154,10 @@
         align-items: center;
         padding: 14px 0;
         border-bottom: 1px solid rgba(168,117,85,0.25);
+
+        /* PETITE SÉCURITÉ GAUCHE/DROITE */
+        padding-left: 8px;
+        padding-right: 8px;
     }
 
     .qty-controls {
@@ -204,7 +214,6 @@
 <div class="item"><span class="name">Iced Coffee Latte</span><span class="price">4.500</span><div class="add-btn" onclick="addToCart('Iced Coffee Latte',4500)">☕</div></div>
 <div class="item"><span class="name">Lait végétal</span><span class="price">+1000</span><div class="add-btn" onclick="addToCart('Lait végétal',1000)">☕</div></div>
 
-
 <!-- ========================= MATCHAS ========================= -->
 <h2>Les matchas</h2>
 
@@ -214,7 +223,6 @@
 <div class="item"><span class="name">Mango Matcha</span><span class="price">6.500</span><div class="add-btn" onclick="addToCart('Mango Matcha',6500)">☕</div></div>
 <div class="item"><span class="name">Lait végétal</span><span class="price">+1000</span><div class="add-btn" onclick="addToCart('Lait végétal',1000)">☕</div></div>
 
-
 <!-- ========================= FRAPPÉS ========================= -->
 <h2>Les frappés</h2>
 
@@ -222,7 +230,6 @@
 <div class="item"><span class="name">Matcha Frappé</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Matcha Frappé',5500)">☕</div></div>
 <div class="item"><span class="name">Caramel Frappé</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Caramel Frappé',5500)">☕</div></div>
 <div class="item"><span class="name">Lait végétal</span><span class="price">+1000</span><div class="add-btn" onclick="addToCart('Lait végétal',1000)">☕</div></div>
-
 
 <!-- ========================= BOISSONS CHAUDES ========================= -->
 <h2>Boissons chaudes</h2>
@@ -235,7 +242,6 @@
 <div class="item"><span class="name">Cappuccino</span><span class="price">3.500</span><div class="add-btn" onclick="addToCart('Cappuccino',3500)">☕</div></div>
 <div class="item"><span class="name">Lait végétal</span><span class="price">+1000</span><div class="add-btn" onclick="addToCart('Lait végétal',1000)">☕</div></div>
 
-
 <!-- ========================= SPÉCIAUX ========================= -->
 <h2>Les spéciaux</h2>
 
@@ -243,7 +249,6 @@
 <div class="item"><span class="name">Iced Chocolate</span><span class="price">5.000</span><div class="add-btn" onclick="addToCart('Iced Chocolate',5000)">☕</div></div>
 <div class="item"><span class="name">UBE Latte</span><span class="price">7.000</span><div class="add-btn" onclick="addToCart('UBE Latte',7000)">☕</div></div>
 <div class="item"><span class="name">Lait végétal</span><span class="price">+1000</span><div class="add-btn" onclick="addToCart('Lait végétal',1000)">☕</div></div>
-
 
 <!-- ========================= BOISSONS GAZEUSES ========================= -->
 <h2>Boissons gazeuses</h2>
@@ -257,7 +262,6 @@
 <div class="item"><span class="name">Perrier</span><span class="price">2.000</span><div class="add-btn" onclick="addToCart('Perrier',2000)">☕</div></div>
 <div class="item"><span class="name">Eau</span><span class="price">1.000</span><div class="add-btn" onclick="addToCart('Eau',1000)">☕</div></div>
 
-
 <!-- ========================= WEEK-END ========================= -->
 <h2>Spéciaux du weekend</h2>
 
@@ -267,7 +271,6 @@
 <div class="item"><span class="name">LE LATTE XXXL</span><span class="price">25.000</span><div class="add-btn" onclick="addToCart('LE LATTE XXXL',25000)">☕</div></div>
 <div class="item"><span class="name">LE MATCHA XXXL</span><span class="price">30.000</span><div class="add-btn" onclick="addToCart('LE MATCHA XXXL',30000)">☕</div></div>
 <div class="item"><span class="name">Lait végétal</span><span class="price">+1000</span><div class="add-btn" onclick="addToCart('Lait végétal',1000)">☕</div></div>
-
 
 <!-- ========================= TIRAMISU ========================= -->
 <h2>Tiramisu</h2>
@@ -282,11 +285,8 @@
 <div class="item"><span class="name">Pistache</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Tiramisu Pistache',5500)">☕</div></div>
 <div class="item"><span class="name">Oreo</span><span class="price">5.000</span><div class="add-btn" onclick="addToCart('Tiramisu Oreo',5000)">☕</div></div>
 
-
 <!-- ========================= BOTTOM SHEET PANIER ========================= -->
-
 <div id="cart-sheet">
-
     <div id="sheet-header">
         <span>Votre panier</span>
         <span style="cursor:pointer" onclick="closeCart()">✕</span>
@@ -299,9 +299,7 @@
     </div>
 
     <button id="send-whatsapp" onclick="sendWhatsapp()">Commander sur WhatsApp</button>
-
 </div>
-
 
 <!-- BOUTON FLOTTANT -->
 <button id="floating-cart-btn" onclick="openCart()">
