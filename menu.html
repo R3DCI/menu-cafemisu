@@ -18,6 +18,224 @@
         overflow-x: hidden;
     }
 
+    /* LOADER PREMIUM */
+    #loader {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: #F9F5F1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+        animation: fadeOut 1s ease forwards;
+        animation-delay: 1.2s;
+    }
+    #loader .circle {
+        width: 60px; height: 60px;
+        border-radius: 50%;
+        border: 5px solid rgba(168,117,85,0.25);
+        border-top-color: #A87555;
+        animation: spin 0.9s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+
+    /* TITRE */
+    h1 {
+        text-align: center;
+        margin-top: 42px;
+        margin-bottom: 8px;
+        font-size: 2.7rem;
+        font-weight: 700;
+    }
+
+    /* RETOUR */
+    #back-home {
+        display: block;
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        text-decoration: none;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #A87555;
+        opacity: 0.75;
+        transition: 0.2s;
+    }
+    #back-home:hover { opacity: 1; }
+
+    h2 {
+        margin-top: 45px;
+        margin-bottom: 15px;
+        font-size: 1.9rem;
+        border-bottom: 2px solid #A87555;
+        display: inline-block;
+        padding-bottom: 5px;
+    }
+
+    /* ITEMS */
+    .item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(168,117,85,0.25);
+        position: relative;
+    }
+    .name {
+        font-weight: 600;
+        max-width: 62%;
+        font-size: 1.2rem;
+    }
+    .price {
+        margin-right: 12px;
+        font-size: 1.2rem;
+        opacity: 0.85;
+    }
+    .add-btn {
+        width: 46px; height: 46px;
+        border-radius: 50%;
+        background: #fff;
+        border: 2px solid #A87555;
+        color: #A87555;
+        font-size: 23px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+    .add-btn:hover {
+        transform: scale(1.12);
+        background: #F3E5DB;
+    }
+
+    /* Animation +1 */
+    .plus-one {
+        position: absolute;
+        color: #A87555;
+        font-size: 1.2rem;
+        font-weight: bold;
+        animation: floatUp 0.8s ease forwards;
+        pointer-events: none;
+        left: 70%; top: -5px;
+    }
+    @keyframes floatUp {
+        0% { opacity: 0; transform: translateY(10px); }
+        30% { opacity: 1; }
+        100% { opacity: 0; transform: translateY(-20px); }
+    }
+
+    /* FLOATING BUTTON */
+    #floating-cart-btn {
+        position: fixed;
+        bottom: 22px; right: 22px;
+        width: 70px; height: 70px;
+        background: none !important;
+        border: none !important;
+        padding: 0;
+        cursor: pointer;
+        z-index: 999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: 0.15s ease;
+    }
+    #floating-cart-btn.shake { animation: shake 0.4s ease; }
+
+    @keyframes shake {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-4px); }
+        50% { transform: translateX(4px); }
+        75% { transform: translateX(-4px); }
+        100% { transform: translateX(0); }
+    }
+
+    #cart-count {
+        position: absolute;
+        top: -6px; right: -6px;
+        width: 26px; height: 26px;
+        background: white;
+        border-radius: 50%;
+        border: 2px solid #A87555;
+        color: #A87555;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: bold;
+        transition: transform 0.2s ease;
+    }
+    #cart-count.bump { transform: scale(1.3); }
+
+    /* BOTTOM SHEET PRO */
+    #cart-sheet {
+        position: fixed;
+        bottom: -100%;
+        left: 0;
+        width: 100%;
+        height: 72%;
+        background: rgba(255,255,255,0.55);
+        backdrop-filter: blur(16px);
+        box-shadow: 0 -7px 25px rgba(0,0,0,0.18);
+        border-radius: 22px 22px 0 0;
+        transition: 0.38s cubic-bezier(.25,.46,.45,.94);
+        z-index: 1000;
+        padding: 22px 20px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    #sheet-header {
+        position: sticky;
+        top: 0;
+        background: rgba(255,255,255,0.35);
+        backdrop-filter: blur(12px);
+        padding-bottom: 14px;
+        padding-top: 10px;
+        z-index: 10;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1.4rem;
+        font-weight: 700;
+    }
+
+    .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(168,117,85,0.25);
+        animation: slideIn 0.3s ease forwards;
+        opacity: 0;
+    }
+    @keyframes slideIn {
+        from { opacity: 0; transform: translateX(15px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CaféMisu – Menu</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        background-color: #F9F5F1;
+        font-family: 'Playfair Display', serif;
+        color: #A87555;
+        margin: 0;
+        padding: 0 20px 200px;
+        line-height: 1.65;
+        overflow-x: hidden;
+    }
+
     /* ==================== PREMIUM LOADER ==================== */
     #loader {
         position: fixed;
@@ -31,16 +249,16 @@
         align-items: center;
         z-index: 2000;
         animation: fadeOut 1s ease forwards;
-        animation-delay: 1.1s;
+        animation-delay: 1.2s;
     }
 
     #loader .circle {
         width: 60px;
         height: 60px;
         border-radius: 50%;
-        border: 6px solid rgba(168,117,85,0.25);
+        border: 5px solid rgba(168,117,85,0.25);
         border-top-color: #A87555;
-        animation: spin 0.85s linear infinite;
+        animation: spin 0.9s linear infinite;
     }
 
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -50,8 +268,8 @@
     h1 {
         text-align: center;
         margin-top: 42px;
-        margin-bottom: 6px;
-        font-size: 2.8rem;
+        margin-bottom: 8px;
+        font-size: 2.7rem;
         font-weight: 700;
     }
 
@@ -59,9 +277,9 @@
         display:block;
         text-align:center;
         margin-top:10px;
-        margin-bottom:25px;
+        margin-bottom:10px;
         text-decoration:none;
-        font-size:1.15rem;
+        font-size:1.1rem;
         font-weight:600;
         color:#A87555;
         opacity:0.75;
@@ -72,7 +290,7 @@
 
     h2 {
         margin-top: 45px;
-        margin-bottom: 12px;
+        margin-bottom: 15px;
         font-size: 1.9rem;
         border-bottom: 2px solid #A87555;
         display: inline-block;
@@ -91,7 +309,7 @@
 
     .name {
         font-weight: 600;
-        max-width: 63%;
+        max-width: 62%;
         font-size: 1.2rem;
     }
 
@@ -102,13 +320,13 @@
     }
 
     .add-btn {
-        width: 48px;
-        height: 48px;
+        width: 46px;
+        height: 46px;
         border-radius: 50%;
         background: #fff;
         border: 2px solid #A87555;
         color: #A87555;
-        font-size: 22px;
+        font-size: 23px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -144,8 +362,8 @@
         position: fixed;
         bottom: 22px;
         right: 22px;
-        width: 78px;
-        height: 78px;
+        width: 70px;
+        height: 70px;
         background: none !important;
         border: none !important;
         padding: 0;
@@ -157,9 +375,12 @@
         transition: transform 0.15s ease;
     }
 
-    #floating-cart-btn.shake {
-        animation: shake 0.4s ease;
+    #floating-cart-btn img {
+        width: 70px;
+        height: 70px;
     }
+
+    #floating-cart-btn.shake { animation: shake 0.4s ease; }
 
     @keyframes shake {
         0% { transform: translateX(0); }
@@ -173,8 +394,8 @@
         position: absolute;
         top: -6px;
         right: -6px;
-        width: 30px;
-        height: 30px;
+        width: 26px;
+        height: 26px;
         background: white;
         border-radius: 50%;
         border: 2px solid #A87555;
@@ -182,35 +403,27 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 15px;
+        font-size: 14px;
         font-weight: bold;
         transition: transform 0.2s ease;
     }
 
-    #cart-count.bump {
-        transform: scale(1.3);
-    }
+    #cart-count.bump { transform: scale(1.3); }
 
-    /* ==================== BOTTOM SHEET PREMIUM (NOUVEAU DESIGN) ==================== */
+    /* ==================== BOTTOM SHEET ==================== */
     #cart-sheet {
         position: fixed;
-        bottom: -105%;
+        bottom: -100%;
         left: 0;
         width: 100%;
-        height: 78%;
-        background: rgba(255, 255, 255, 0.75);
-        backdrop-filter: blur(20px);
-        box-shadow: 0 -12px 35px rgba(0,0,0,0.18);
-        border-radius: 28px 28px 0 0;
-        transition: bottom 0.38s cubic-bezier(.25,.46,.45,.94);
+        height: 72%;
+        background: rgba(255,255,255,0.55);
+        backdrop-filter: blur(16px);
+        box-shadow: 0 -7px 25px rgba(0,0,0,0.18);
+        border-radius: 22px 22px 0 0;
+        transition: 0.38s cubic-bezier(.25,.46,.45,.94);
         z-index: 1000;
-        padding: 25px;
-        padding-bottom: 50px;
-        box-sizing: border-box;
-        max-width: 600px;
-        margin: 0 auto;
-        right: 0;
-        left: 0;
+        padding: 22px 20px;
         overflow-y: auto;
         overflow-x: hidden;
     }
@@ -218,35 +431,31 @@
     #sheet-header {
         position: sticky;
         top: 0;
-        background: rgba(255,255,255,0.65);
-        backdrop-filter: blur(14px);
+        background: rgba(255,255,255,0.4);
+        backdrop-filter: blur(10px);
         padding-bottom: 14px;
         padding-top: 10px;
         z-index: 10;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         font-weight: 700;
     }
 
-    /* ==================== CART ITEM (NOUVEAU STYLE) ==================== */
     .cart-item {
-        background: rgba(255,255,255,0.9);
-        border-radius: 14px;
-        padding: 14px 18px;
-        margin-bottom: 14px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(168,117,85,0.25);
         animation: slideIn 0.3s ease forwards;
         opacity: 0;
     }
 
     @keyframes slideIn {
-        from { opacity: 0; transform: translateY(12px); }
-        to   { opacity: 1; transform: translateY(0); }
+        from { opacity: 0; transform: translateX(15px); }
+        to { opacity: 1; transform: translateX(0); }
     }
 
     .qty-controls {
@@ -264,84 +473,18 @@
         font-size: 22px;
         cursor: pointer;
         color: #A87555;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: 0.15s ease;
     }
 
-    .qty-btn:active { transform: scale(0.88); }
-
     .total-line {
-        margin-top: 10px;
+        margin-top: 20px;
         font-size: 1.5rem;
         font-weight: 700;
         text-align: right;
-        padding-right: 6px;
-    }
-
-    /* ==================== FORMULAIRE LIVRAISON ==================== */
-    .form-block {
-        background: rgba(255,255,255,0.85);
-        padding: 16px;
-        border-radius: 16px;
-        margin-top: 18px;
-        box-shadow: 0 3px 12px rgba(0,0,0,0.07);
-    }
-
-    .form-label {
-        font-weight: 600;
-        margin-bottom: 5px;
-        font-size: 1.05rem;
-    }
-
-    .form-input {
-        width: 100%;
-        padding: 12px 14px;
-        border: 2px solid #A87555;
-        border-radius: 12px;
-        font-size: 1.1rem;
-        margin-bottom: 12px;
-        background: #FFF;
-        font-family: 'Playfair Display';
-    }
-
-    #send-whatsapp {
-        margin-top: 18px;
-        width: 100%;
-        padding: 16px;
-        background: #A87555;
-        color: white;
-        border: none;
-        border-radius: 14px;
-        font-size: 1.3rem;
-        cursor: pointer;
-        font-weight: 600;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-        transition: 0.2s;
-    }
-
-    #send-whatsapp:hover { background: #8c6248; }
-
-    .close-sheet {
-        margin-top: 12px;
-        width: 100%;
-        padding: 14px;
-        background: #C9B8AE;
-        color: white;
-        border: none;
-        border-radius: 12px;
-        font-size: 1.1rem;
-        font-weight: 600;
-        cursor: pointer;
+        margin-bottom: 10px;
     }
 
 </style>
 </head>
-
 <body>
 
 <!-- LOADER -->
@@ -389,10 +532,6 @@
 <div class="item"><span class="name">UBE Latte</span><span class="price">7.000</span><div class="add-btn" onclick="addToCart('UBE Latte',7000,this)">☕</div></div>
 <div class="item"><span class="name">Lait végétal</span><span class="price">+1000</span><div class="add-btn" onclick="addToCart('Lait végétal',1000,this)">☕</div></div>
 
-<!-- ========================= SECTION 2 FIN ========================= -->
-
-<!-- FIN PARTIE 2 -->
-
 <!-- ========================= GAZEUSES ========================= -->
 <h2>Boissons gazeuses</h2>
 <div class="item"><span class="name">Coca</span><span class="price">1.000</span><div class="add-btn" onclick="addToCart('Coca',1000,this)">☕</div></div>
@@ -404,27 +543,6 @@
 <div class="item"><span class="name">Perrier</span><span class="price">2.000</span><div class="add-btn" onclick="addToCart('Perrier',2000,this)">☕</div></div>
 <div class="item"><span class="name">Eau</span><span class="price">1.000</span><div class="add-btn" onclick="addToCart('Eau',1000,this)">☕</div></div>
 
-<!-- ========================= WEEK-END ========================= -->
-<h2>Spéciaux du weekend</h2>
-<div class="item"><span class="name">Tiramisu Cake Latte</span><span class="price">7.000</span><div class="add-btn" onclick="addToCart('Tiramisu Cake Latte',7000,this)">☕</div></div>
-<div class="item"><span class="name">Tiramisu Cake Matcha Latte</span><span class="price">7.500</span><div class="add-btn" onclick="addToCart('Tiramisu Cake Matcha Latte',7500,this)">☕</div></div>
-<div class="item"><span class="name">Matcha Banana Pudding</span><span class="price">7.500</span><div class="add-btn" onclick="addToCart('Matcha Banana Pudding',7500,this)">☕</div></div>
-<div class="item"><span class="name">LE LATTE XXXL</span><span class="price">25.000</span><div class="add-btn" onclick="addToCart('LE LATTE XXXL',25000,this)">☕</div></div>
-<div class="item"><span class="name">LE MATCHA XXXL</span><span class="price">30.000</span><div class="add-btn" onclick="addToCart('LE MATCHA XXXL',30000,this)">☕</div></div>
-<div class="item"><span class="name">Lait végétal</span><span class="price">+1000</span><div class="add-btn" onclick="addToCart('Lait végétal',1000,this)">☕</div></div>
-
-<!-- ========================= TIRAMISU ========================= -->
-<h2>Tiramisu</h2>
-<div class="item"><span class="name">Café</span><span class="price">4.000</span><div class="add-btn" onclick="addToCart('Tiramisu Café',4000,this)">☕</div></div>
-<div class="item"><span class="name">Matcha</span><span class="price">5.000</span><div class="add-btn" onclick="addToCart('Tiramisu Matcha',5000,this)">☕</div></div>
-<div class="item"><span class="name">Nutella</span><span class="price">5.000</span><div class="add-btn" onclick="addToCart('Tiramisu Nutella',5000,this)">☕</div></div>
-<div class="item"><span class="name">Fraise</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Tiramisu Fraise',5500,this)">☕</div></div>
-<div class="item"><span class="name">Spéculos</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Tiramisu Spéculos',5500,this)">☕</div></div>
-<div class="item"><span class="name">Ferrero</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Tiramisu Ferrero',5500,this)">☕</div></div>
-<div class="item"><span class="name">Bueno</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Tiramisu Bueno',5500,this)">☕</div></div>
-<div class="item"><span class="name">Pistache</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Tiramisu Pistache',5500,this)">☕</div></div>
-<div class="item"><span class="name">Oreo</span><span class="price">5.000</span><div class="add-btn" onclick="addToCart('Tiramisu Oreo',5000,this)">☕</div></div>
-
 <!-- ========================= BOTTOM SHEET ========================= -->
 <div id="cart-sheet">
 
@@ -433,22 +551,13 @@
         <span style="cursor:pointer" onclick="closeCart()">✕</span>
     </div>
 
-    <!-- FORMULAIRE CLIENT -->
-    <div class="client-fields">
-        <input type="text" id="client-nom" placeholder="Nom">
-        <input type="text" id="client-prenom" placeholder="Prénom">
-        <input type="text" id="client-tel" placeholder="Téléphone">
-        <input type="text" id="client-addr" placeholder="Adresse de livraison">
-    </div>
-
-    <!-- ITEMS DU PANIER -->
     <div id="cart-items"></div>
 
     <div class="total-line">
         Total : <span id="cart-total">0</span> FCFA
     </div>
 
-    <button id="send-whatsapp" onclick="sendWhatsapp()">
+    <button id="send-whatsapp" onclick="openOrderPopup()">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:22px;">
         Commander sur WhatsApp
     </button>
@@ -462,11 +571,78 @@
     <span id="cart-count">0</span>
 </button>
 
+
+<!-- ========================= POP-UP PREMIUM STYLE IPHONE ========================= -->
+
+<div id="order-popup-overlay" style="
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(6px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 5000;">
+</div>
+
+<div id="order-popup" style="
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: 88%;
+    max-width: 420px;
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(16px);
+    border-radius: 18px;
+    padding: 22px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+    z-index: 6001;
+    display: none;
+    opacity: 0;
+    transition: 0.25s ease;
+    font-family: 'Playfair Display', serif;
+    color: #A87555;">
+    
+    <h3 style="margin-top:0; font-size:1.5rem; text-align:center;">Infos de livraison</h3>
+
+    <input id="client-name" type="text" placeholder="Nom complet" style="
+        width: 100%; padding: 12px; margin-top: 12px;
+        border-radius: 12px; border: 1px solid #C9B8AE; font-size:1.05rem;">
+    
+    <input id="client-phone" type="text" placeholder="Téléphone" style="
+        width: 100%; padding: 12px; margin-top: 12px;
+        border-radius: 12px; border: 1px solid #C9B8AE; font-size:1.05rem;">
+    
+    <input id="client-address" type="text" placeholder="Adresse de livraison" style="
+        width: 100%; padding: 12px; margin-top: 12px;
+        border-radius: 12px; border: 1px solid #C9B8AE; font-size:1.05rem;">
+
+    <button onclick="confirmAndSendWhatsapp()" style="
+        width: 100%; margin-top: 22px;
+        padding: 14px; border:none;
+        background:#A87555; color:white;
+        border-radius: 12px; font-size:1.2rem;
+        font-weight:600; cursor:pointer;">
+        Confirmer et envoyer
+    </button>
+
+    <button onclick="closeOrderPopup()" style="
+        width: 100%; margin-top: 12px;
+        padding: 12px; border:none;
+        background:#C9B8AE; color:white;
+        border-radius: 12px; font-size:1rem;
+        font-weight:600; cursor:pointer;">
+        Annuler
+    </button>
+
+</div>
+
 <!-- ========================= JAVASCRIPT ========================= -->
 <script>
 let cart = [];
 
-/* AJOUT ITEM */
+/* AJOUTER UN ARTICLE AU PANIER */
 function addToCart(name, price, btn) {
     let existing = cart.find(i => i.name === name);
     if (existing) existing.qty++;
@@ -476,17 +652,17 @@ function addToCart(name, price, btn) {
     renderCartItems();
 }
 
-/* MET À JOUR COMPTEUR */
+/* METTRE À JOUR LE COMPTEUR */
 function updateCartCount() {
     document.getElementById("cart-count").innerText =
         cart.reduce((s,i)=>s+i.qty,0);
 }
 
-/* OUVRIR / FERMER */
+/* OUVERTURE / FERMETURE PANIER */
 function openCart(){ document.getElementById("cart-sheet").style.bottom="0"; }
 function closeCart(){ document.getElementById("cart-sheet").style.bottom="-100%"; }
 
-/* AFFICHAGE ITEMS */
+/* AFFICHER LES ARTICLES DU PANIER */
 function renderCartItems() {
     let box = document.getElementById("cart-items");
     box.innerHTML = "";
@@ -509,7 +685,7 @@ function renderCartItems() {
     updateTotal();
 }
 
-/* QUANTITÉ */
+/* MODIFIER QUANTITÉ */
 function increaseQty(i){ cart[i].qty++; renderCartItems(); updateCartCount(); }
 function decreaseQty(i){
     cart[i].qty--;
@@ -523,33 +699,54 @@ function updateTotal(){
     document.getElementById("cart-total").innerText = t.toLocaleString();
 }
 
-/* WHATSAPP */
-function sendWhatsapp(){
-    if(cart.length===0){ alert("Votre panier est vide."); return; }
+/* POP-UP */
+function openOrderPopup() {
+    document.getElementById("order-popup-overlay").style.display = "flex";
 
-    let nom = document.getElementById("client-nom").value.trim();
-    let prenom = document.getElementById("client-prenom").value.trim();
-    let tel = document.getElementById("client-tel").value.trim();
-    let addr = document.getElementById("client-addr").value.trim();
+    const popup = document.getElementById("order-popup");
+    popup.style.display = "block";
 
-    let msg = `Nouvelle commande :\n\n`;
+    setTimeout(() => {
+        popup.style.opacity = "1";
+        popup.style.transform = "translate(-50%, -50%) scale(1)";
+    }, 10);
+}
 
-    if(nom) msg += `Nom : ${nom}\n`;
-    if(prenom) msg += `Prénom : ${prenom}\n`;
-    if(tel) msg += `Téléphone : ${tel}\n`;
-    if(addr) msg += `Adresse : ${addr}\n`;
+function closeOrderPopup() {
+    const popup = document.getElementById("order-popup");
+    popup.style.opacity = "0";
+    popup.style.transform = "translate(-50%, -50%) scale(0.8)";
 
-    msg += `\nCommande :\n`;
+    setTimeout(() => {
+        popup.style.display = "none";
+        document.getElementById("order-popup-overlay").style.display = "none";
+    }, 200);
+}
+
+/* CONFIRMATION + ENVOI WHATSAPP */
+function confirmAndSendWhatsapp() {
+
+    let name = document.getElementById("client-name").value.trim();
+    let phone = document.getElementById("client-phone").value.trim();
+    let address = document.getElementById("client-address").value.trim();
+
+    if (!name || !phone || !address) {
+        alert("Merci de remplir toutes les informations.");
+        return;
+    }
+
+    let message = `Nouvelle commande CaféMisu 🍰☕\n\nClient : ${name}\nTéléphone : ${phone}\nAdresse : ${address}\n\nCommande :\n`;
 
     cart.forEach(i=>{
-        msg += `• ${i.name} x${i.qty} — ${i.price*i.qty} FCFA\n`;
+        message += `• ${i.name} x${i.qty} — ${i.price*i.qty} FCFA\n`;
     });
 
     let total = cart.reduce((s,i)=>s+i.price*i.qty,0);
-    msg += `\nTotal : ${total.toLocaleString()} FCFA`;
+    message += `\nTotal : ${total.toLocaleString()} FCFA`;
 
-    window.location.href =
-        `https://wa.me/2250716699999?text=${encodeURIComponent(msg)}`;
+    const url = `https://wa.me/2250716699999?text=${encodeURIComponent(message)}`;
+
+    window.location.href = url;
 }
 </script>
 
