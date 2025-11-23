@@ -101,6 +101,7 @@
         font-weight: 600;
         max-width: 62%;
         font-size: 1.2rem;
+        word-break: break-word;
     }
 
     .price {
@@ -199,24 +200,22 @@
         transform: scale(1.3);
     }
 
-        /* ==================== BOTTOM SHEET PREMIUM ==================== */
+    /* ==================== BOTTOM SHEET PREMIUM CORRIGÉ ==================== */
     #cart-sheet {
-    position: fixed;
-    bottom: -100%;
-    left: 0;
-    width: 100%;
-    height: 72%;
-    background: rgba(255,255,255,0.55);
-    backdrop-filter: blur(16px);
-    box-shadow: 0 -7px 25px rgba(0,0,0,0.18);
-    border-radius: 22px 22px 0 0;
-    transition: 0.38s cubic-bezier(.25,.46,.45,.94);
-    z-index: 1000;
-    padding: 22px 20px;
-    overflow-y: auto;
-    overflow-x: hidden; /* 👈 FIX DU PROBLÈME */
-}
-
+        position: fixed;
+        bottom: -100%;
+        left: 0;
+        width: 100%;
+        height: 75%;
+        background: rgba(255,255,255,0.55);
+        backdrop-filter: blur(16px);
+        box-shadow: 0 -7px 25px rgba(0,0,0,0.18);
+        border-radius: 22px 22px 0 0;
+        transition: 0.38s cubic-bezier(.25,.46,.45,.94);
+        z-index: 1000;
+        padding: 22px 24px; /* MARGE CORRIGÉE */
+        overflow-y: auto;
+    }
 
     #sheet-header {
         position: sticky;
@@ -232,90 +231,6 @@
         font-size: 1.4rem;
         font-weight: 700;
     }
-
-    .cart-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 14px 0;
-        border-bottom: 1px solid rgba(168,117,85,0.25);
-        animation: slideIn 0.3s ease forwards;
-        opacity: 0;
-    }
-
-    @keyframes slideIn {
-        from { opacity: 0; transform: translateX(15px); }
-        to { opacity: 1; transform: translateX(0); }
-    }
-
-    .qty-controls {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .qty-btn {
-        width: 34px;
-        height: 34px;
-        border-radius: 50%;
-        border: 2px solid #A87555;
-        background: white;
-        font-size: 22px;
-        cursor: pointer;
-        color: #A87555;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: 0.15s ease;
-    }
-
-    .qty-btn:active {
-        transform: scale(0.88);
-    }
-
-    .total-line {
-        margin-top: 20px;
-        font-size: 1.5rem;
-        font-weight: 700;
-        text-align: right;
-        margin-bottom: 10px;
-        transition: 0.2s ease;
-    }
-
-    #send-whatsapp {
-        margin-top: 8px;
-        width: 100%;
-        padding: 16px;
-        background: #A87555;
-        color: white;
-        border: none;
-        border-radius: 12px;
-        font-size: 1.3rem;
-        cursor: pointer;
-        font-weight: 600;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-        transition: 0.2s ease;
-    }
-
-    #send-whatsapp:hover {
-        background: #946a4f;
-    }
-
-    .close-sheet {
-        margin-top: 14px;
-        width: 100%;
-        padding: 14px;
-        background: #C9B8AE;
-        color: white;
-        border: none;
-        border-radius: 12px;
-        font-size: 1.1rem;
-        font-weight: 600;
-        cursor: pointer;
-    }
 </style>
 
 </head>
@@ -327,7 +242,6 @@
 </div>
 
 <h1>Menu CaféMisu</h1>
-
 <a href="index.html" id="back-home">← Retour à l’accueil</a>
 
 <!-- ========================= LES LATTÉS ========================= -->
@@ -357,8 +271,7 @@
 <div class="item"><span class="name">Café au lait</span><span class="price">3.500</span><div class="add-btn" onclick="addToCart('Café au lait',3500, this)">☕</div></div>
 <div class="item"><span class="name">Thé</span><span class="price">1.500</span><div class="add-btn" onclick="addToCart('Thé',1500, this)">☕</div></div>
 <div class="item"><span class="name">Chocolat chaud</span><span class="price">3.500</span><div class="add-btn" onclick="addToCart('Chocolat chaud',3500, this)">☕</div></div>
-
-    <div class="item"><span class="name">Espresso</span><span class="price">1.000</span><div class="add-btn" onclick="addToCart('Espresso',1000, this)">☕</div></div>
+<div class="item"><span class="name">Espresso</span><span class="price">1.000</span><div class="add-btn" onclick="addToCart('Espresso',1000, this)">☕</div></div>
 <div class="item"><span class="name">Americano</span><span class="price">2.000</span><div class="add-btn" onclick="addToCart('Americano',2000, this)">☕</div></div>
 <div class="item"><span class="name">Cappuccino</span><span class="price">3.500</span><div class="add-btn" onclick="addToCart('Cappuccino',3500, this)">☕</div></div>
 <div class="item"><span class="name">Lait végétal</span><span class="price">+1000</span><div class="add-btn" onclick="addToCart('Lait végétal',1000, this)">☕</div></div>
@@ -402,7 +315,6 @@
 <div class="item"><span class="name">Pistache</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Tiramisu Pistache',5500, this)">☕</div></div>
 <div class="item"><span class="name">Oreo</span><span class="price">5.000</span><div class="add-btn" onclick="addToCart('Tiramisu Oreo',5000, this)">☕</div></div>
 
-
 <!-- ========================= BOTTOM SHEET ========================= -->
 <div id="cart-sheet">
 
@@ -417,30 +329,85 @@
         Total : <span id="cart-total">0</span> FCFA
     </div>
 
-    <button id="send-whatsapp" onclick="sendWhatsapp()">
+    <button id="send-whatsapp" onclick="openClientPopup()">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:22px;">
-        Commander sur WhatsApp
+        Commander
     </button>
 
     <button class="close-sheet" onclick="closeCart()">Fermer</button>
 
 </div>
 
-<!-- BOUTON FLOTTANT -->
+
+<!-- ========================= POPUP CLIENT ========================= -->
+<div id="client-popup" style="
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.45);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;">
+    
+    <div style="
+        background: #ffffff;
+        width: 88%;
+        max-width: 380px;
+        padding: 22px;
+        border-radius: 14px;
+        box-shadow: 0 4px 18px rgba(0,0,0,0.2);
+        text-align: center;
+        font-family: 'Playfair Display', serif;">
+
+        <h3 style="margin-top:0; font-size:1.6rem; color:#A87555;">Vos informations</h3>
+
+        <input id="client-name" type="text" placeholder="Nom" style="
+            width: 100%; padding: 12px; margin: 10px 0;
+            border: 1px solid #C2AFA5; border-radius: 8px; font-size:1rem;">
+        
+        <input id="client-firstname" type="text" placeholder="Prénom" style="
+            width: 100%; padding: 12px; margin: 10px 0;
+            border: 1px solid #C2AFA5; border-radius: 8px; font-size:1rem;">
+        
+        <input id="client-phone" type="tel" placeholder="Numéro de téléphone" style="
+            width: 100%; padding: 12px; margin: 10px 0;
+            border: 1px solid #C2AFA5; border-radius: 8px; font-size:1rem;">
+
+        <button onclick="confirmOrder()" style="
+            width:100%; padding:14px; background:#A87555;
+            color:white; border:none; border-radius:10px;
+            font-size:1.2rem; margin-top:12px;">Envoyer</button>
+
+        <button onclick="closeClientPopup()" style="
+            width:100%; padding:12px; background:#C8B8AE;
+            color:white; border:none; border-radius:10px;
+            font-size:1rem; margin-top:10px;">Annuler</button>
+    </div>
+</div>
+
+
+<!-- ========================= BOUTON FLOTTANT ========================= -->
 <button id="floating-cart-btn" onclick="openCart()">
     <img src="tiramisu-icon.png" style="width:70px; height:70px;">
     <span id="cart-count">0</span>
 </button>
 
-<!-- ========================= JAVASCRIPT PREMIUM ========================= -->
 
+<!-- ========================= JAVASCRIPT ========================= -->
 <script>
 let cart = [];
 
-/* ========= AJOUT AVEC ANIMATION +1 ========= */
+/* ========= AJOUT ========= */
 function addToCart(name, price, btn) {
 
-    cart.push({ name, price, qty: 1 });
+    let existing = cart.find(item => item.name === name);
+
+    if (existing) {
+        existing.qty++;
+    } else {
+        cart.push({ name, price, qty: 1 });
+    }
 
     updateCartCount();
     renderCartItems();
@@ -455,11 +422,10 @@ function addToCart(name, price, btn) {
     setTimeout(() => plus.remove(), 800);
 }
 
-/* ========= PANIER ========= */
+/* ========= COMPTE ========= */
 function updateCartCount() {
-    let count = cart.length;
+    let count = cart.reduce((s, i) => s + i.qty, 0);
     let badge = document.getElementById("cart-count");
-
     badge.innerText = count;
 
     badge.classList.add("bump");
@@ -475,14 +441,14 @@ function closeCart() {
     document.getElementById("cart-sheet").style.bottom = "-100%";
 }
 
-/* ========= ANIMATION PANIER ========= */
+/* ========= ANIMATION ICON ========= */
 function animateCartIcon() {
     let btn = document.getElementById("floating-cart-btn");
     btn.classList.add("shake");
     setTimeout(() => btn.classList.remove("shake"), 400);
 }
 
-/* ========= AFFICHAGE ITEMS ========= */
+/* ========= AFFICHAGE PANIER ========= */
 function renderCartItems() {
     let container = document.getElementById("cart-items");
     container.innerHTML = "";
@@ -490,7 +456,6 @@ function renderCartItems() {
     cart.forEach((item, i) => {
         let div = document.createElement("div");
         div.className = "cart-item";
-        div.style.animationDelay = (i * 0.05) + "s";
 
         div.innerHTML = `
             <span style="font-weight:600;">${item.name}</span>
@@ -501,7 +466,7 @@ function renderCartItems() {
                 <button class="qty-btn" onclick="increaseQty(${i})">+</button>
             </div>
 
-            <span>${item.price * item.qty} FCFA</span>
+            <span>${(item.price * item.qty).toLocaleString()} FCFA</span>
         `;
 
         container.appendChild(div);
@@ -524,36 +489,47 @@ function decreaseQty(i) {
     renderCartItems();
 }
 
-/* ========= TOTAL ANIMÉ ========= */
+/* ========= TOTAL ========= */
 function updateTotal() {
     let total = cart.reduce((s, it) => s + it.price * it.qty, 0);
-    let totalElem = document.getElementById("cart-total");
-
-    totalElem.style.transform = "scale(1.1)";
-    setTimeout(() => totalElem.style.transform = "scale(1)", 200);
-
-    totalElem.innerText = total.toLocaleString();
+    document.getElementById("cart-total").innerText = total.toLocaleString();
 }
 
-/* ========= WHATSAPP ========= */
-function sendWhatsapp() {
+/* ========= POPUP CLIENT ========= */
+function openClientPopup() {
     if (cart.length === 0) {
         alert("Votre panier est vide.");
         return;
     }
+    document.getElementById("client-popup").style.display = "flex";
+}
 
-    let message = "Bonjour, je souhaiterais commander :\n\n";
+function closeClientPopup() {
+    document.getElementById("client-popup").style.display = "none";
+}
+
+/* ========= CONFIRMATION ========= */
+function confirmOrder() {
+    let name = document.getElementById("client-name").value.trim();
+    let firstname = document.getElementById("client-firstname").value.trim();
+    let phone = document.getElementById("client-phone").value.trim();
+
+    if (!name || !firstname || !phone) {
+        alert("Veuillez remplir tous les champs.");
+        return;
+    }
+
+    let message = `Commande CaféMisu\n\nClient : ${firstname} ${name}\nTel : ${phone}\n\nCommande :\n`;
+
     cart.forEach(item => {
-        message += `• ${item.name} x${item.qty} — ${item.price * item.qty} FCFA\n`;
+        message += `• ${item.name} x${item.qty} — ${(item.price * item.qty).toLocaleString()} FCFA\n`;
     });
 
     let total = cart.reduce((s, it) => s + it.price * it.qty, 0);
-    message += `\nTotal : ${total.toLocaleString()} FCFA\n\nMerci !`;
+    message += `\nTotal : ${total.toLocaleString()} FCFA`;
 
-    const phone = "2250716699999";
-    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-
-    window.location.href = url;
+    const whatsapp = `https://wa.me/2250716699999?text=${encodeURIComponent(message)}`;
+    window.location.href = whatsapp;
 }
 </script>
 
