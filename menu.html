@@ -167,14 +167,15 @@
         backdrop-filter:blur(12px);
     }
 
-    .cart-item {
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        padding:14px 0;
-        border-bottom:1px solid rgba(168,117,85,0.25);
-        padding-right:12px; /* MARGE FIXÉE */
-    }
+.cart-item {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 0;
+    border-bottom:1px solid rgba(168,117,85,0.25);
+    padding-right:30px; /* ✅ MARGE ÉLARGIE */
+    box-sizing:border-box; /* 🔒 garantit que rien ne dépasse */
+}
 
     .qty-controls {
         display:flex;
