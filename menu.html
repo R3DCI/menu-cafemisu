@@ -235,16 +235,18 @@
         color:#A87555;
     }
 
-    input {
-        width:100%;
-        padding:12px;
-        margin-top:14px;
-        border:2px solid #A87555;
-        border-radius:8px;
-        font-size:1rem;
-        background:#FDFBF9;
-        color:#A87555;
-    }
+input {
+    width:100%;
+    padding:12px;
+    padding-right:22px; /* 👈 marge droite pour éviter que ça touche le bord */
+    margin-top:14px;
+    border:2px solid #A87555;
+    border-radius:8px;
+    font-size:1rem;
+    background:#FDFBF9;
+    color:#A87555;
+    box-sizing: border-box; /* 👈 garantit aucun dépassement */
+}
 
     #confirm-order {
         margin-top:20px;
