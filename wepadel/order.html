@@ -126,7 +126,7 @@
 <div id="menu"></div>
 
 <div id="cart">
-    <span id="cart-count">0 article</span>
+    <span id="cart-count">0 article(s)</span>
     <button onclick="openCheckout()">Valider</button>
 </div>
 
@@ -143,9 +143,6 @@
 </div>
 
 <script type="module">
-    // ---------------------------------------
-    // 1. CONFIGURATION FIREBASE
-    // ---------------------------------------
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getFirestore, collection, addDoc, serverTimestamp } 
         from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -163,30 +160,26 @@
     const db = getFirestore(app);
 
     // ---------------------------------------
-    // 2. MENU COMPLET CAFÉMISU
+    // MENU COMPLET CAFÉMISU
     // ---------------------------------------
     const menuItems = [
 
-        // --- Les frappés ---
         { category: "Les frappés", name: "Latté Frappé", price: 4500 },
         { category: "Les frappés", name: "Matcha Frappé", price: 5500 },
         { category: "Les frappés", name: "Caramel Frappé", price: 5500 },
         { category: "Les frappés", name: "Lait végétal", price: 1000 },
 
-        // --- Les matchas ---
         { category: "Les matchas", name: "Iced Matcha Latte", price: 5500 },
         { category: "Les matchas", name: "Coconut Matcha Cloud", price: 5500 },
         { category: "Les matchas", name: "Strawberry Matcha", price: 6500 },
         { category: "Les matchas", name: "Mango Matcha", price: 6500 },
         { category: "Les matchas", name: "Lait végétal", price: 1000 },
 
-        // --- Les lattés ---
         { category: "Les lattés", name: "Iced Americano", price: 4000 },
         { category: "Les lattés", name: "Spanish Iced Latte", price: 5500 },
         { category: "Les lattés", name: "Iced Coffee Latte", price: 4500 },
         { category: "Les lattés", name: "Lait végétal", price: 1000 },
 
-        // --- Boissons chaudes ---
         { category: "Boissons chaudes", name: "Café au lait", price: 3500 },
         { category: "Boissons chaudes", name: "Thé", price: 1500 },
         { category: "Boissons chaudes", name: "Chocolat chaud", price: 3500 },
@@ -195,13 +188,11 @@
         { category: "Boissons chaudes", name: "Cappuccino", price: 3500 },
         { category: "Boissons chaudes", name: "Lait végétal", price: 1000 },
 
-        // --- Les spéciaux ---
         { category: "Les spéciaux", name: "Caramel Machiatto", price: 5000 },
         { category: "Les spéciaux", name: "Iced Chocolate", price: 5000 },
         { category: "Les spéciaux", name: "UBE Latte", price: 7000 },
         { category: "Les spéciaux", name: "Lait végétal", price: 1000 },
 
-        // --- Boissons gazeuses ---
         { category: "Boissons gazeuses", name: "Coca", price: 1000 },
         { category: "Boissons gazeuses", name: "Sprite", price: 1000 },
         { category: "Boissons gazeuses", name: "Fanta", price: 1000 },
@@ -211,7 +202,6 @@
         { category: "Boissons gazeuses", name: "Perrier", price: 2000 },
         { category: "Boissons gazeuses", name: "Eau", price: 1000 },
 
-        // --- Spéciaux du weekend ---
         { category: "Spéciaux du weekend", name: "Tiramisu Cake Latte", price: 7000 },
         { category: "Spéciaux du weekend", name: "Tiramisu Cake Matcha Latte", price: 7500 },
         { category: "Spéciaux du weekend", name: "Matcha Banana Pudding", price: 7500 },
@@ -219,7 +209,6 @@
         { category: "Spéciaux du weekend", name: "LE MATCHA XXXL", price: 30000 },
         { category: "Spéciaux du weekend", name: "Lait végétal", price: 1000 },
 
-        // --- Tiramisu ---
         { category: "Tiramisu", name: "Tiramisu Café", price: 4000 },
         { category: "Tiramisu", name: "Tiramisu Matcha", price: 5000 },
         { category: "Tiramisu", name: "Tiramisu Nutella", price: 5000 },
@@ -235,17 +224,14 @@
     let cart = [];
 
     // ---------------------------------------
-    // 3. Affichage dynamique du menu
+    // AFFICHAGE DU MENU
     // ---------------------------------------
     function renderMenu() {
         let currentCategory = "";
         menuItems.forEach((item, index) => {
-
             if (item.category !== currentCategory) {
                 currentCategory = item.category;
-                menuDiv.innerHTML += `
-                    <h2>${currentCategory}</h2>
-                `;
+                menuDiv.innerHTML += `<h2>${currentCategory}</h2>`;
             }
 
             menuDiv.innerHTML += `
@@ -259,20 +245,23 @@
     }
     renderMenu();
 
+    // Ajouter au panier
     window.addToCart = function(index) {
         cart.push(menuItems[index]);
-        document.getElementById("cart-count").textContent = cart.length + " article(s)";
+        document.getElementById("cart-count").textContent =
+            cart.length + " article(s)";
     };
 
+    // Ouvrir checkout
     window.openCheckout = function() {
         document.getElementById("checkout").style.display = "block";
         window.scrollTo(0, document.body.scrollHeight);
     };
 
     // ---------------------------------------
-    // 4. ENVOI DE LA COMMANDE
+    // ENVOI DE LA COMMANDE (VERSION FIXÉE)
     // ---------------------------------------
-    window.sendOrder = async function() {
+    function sendOrderHandler() {
         const table = document.getElementById("table-number").value;
 
         if (!table) {
@@ -280,17 +269,26 @@
             return;
         }
 
-        await addDoc(collection(db, "orders"), {
+        addDoc(collection(db, "orders"), {
             items: cart,
             table: table,
             name: document.getElementById("client-name").value || "—",
             status: "pending",
             createdAt: serverTimestamp()
+        })
+        .then(() => {
+            alert("Votre commande a été envoyée !");
+            window.location.href = "/"; 
+        })
+        .catch((error) => {
+            console.error("Erreur Firestore :", error);
+            alert("Une erreur est survenue. Réessayez.");
         });
+    }
 
-        alert("Votre commande a été envoyée !");
-        window.location.href = "/"; 
-    };
+    // Fonction accessible au bouton HTML
+    window.sendOrder = sendOrderHandler;
+
 </script>
 
 </body>
