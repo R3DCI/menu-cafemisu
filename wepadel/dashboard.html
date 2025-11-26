@@ -5,9 +5,9 @@
 <title>Dashboard – CaféMisu × We Padel</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+<!-- Firebase compat (OBLIGATOIRE pour utiliser firebase.firestore()) -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
 <!-- Export libs -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -74,7 +74,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-/* -------------- LOGIQUE FILTRE -------------- */
+/* -------------- FILTRE -------------- */
 let currentFilter = "active";
 
 function setFilter(f) {
@@ -104,12 +104,12 @@ function loadOrders() {
             html += generateCard(d);
         });
 
-        window._exportData = allOrders; // pour XLS/PDF
+        window._exportData = allOrders; 
         document.getElementById("orders").innerHTML = html;
-      });
+      }, err => console.error("🔥 Firestore error:", err));
 }
 
-/* -------------- GENERATION CARTE COMMANDE -------------- */
+/* -------------- GENERATION CARTE -------------- */
 function generateCard(d) {
     return `
     <div class="order-card">
@@ -135,7 +135,7 @@ function finishOrder(id) {
     db.collection("orders").doc(id).update({ status: "done" });
 }
 
-/* -------------- EXPORT XLS -------------- */
+/* ---------- EXPORT XLS ---------- */
 function exportXLS() {
     const rows = window._exportData || [];
     const ws = XLSX.utils.json_to_sheet(rows);
@@ -144,7 +144,7 @@ function exportXLS() {
     XLSX.writeFile(wb, "commandes.xlsx");
 }
 
-/* -------------- EXPORT PDF -------------- */
+/* ---------- EXPORT PDF ---------- */
 function exportPDF() {
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF();
