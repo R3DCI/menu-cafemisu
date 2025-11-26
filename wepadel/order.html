@@ -220,7 +220,6 @@
     const menuDiv = document.getElementById("menu");
     let cart = [];
 
-    // AFFICHAGE DU MENU
     function renderMenu() {
         let currentCategory = "";
         menuItems.forEach((item, index) => {
@@ -274,13 +273,14 @@
             items: cart,
             table: table,
             customer: customer,
-            status: "new",             
+            status: "new",
             timestamp: serverTimestamp(),
+            createdAt: serverTimestamp(),
             time: timeString
         })
         .then(() => {
             alert("Votre commande a été envoyée !");
-            window.location.href = "https://cafemisu.fr/wepadel/order.html";
+            window.location.reload();
         })
         .catch((error) => {
             console.error("Erreur Firestore :", error);
