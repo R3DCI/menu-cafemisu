@@ -24,7 +24,6 @@
         margin-bottom: 25px;
     }
 
-    /* -------- FILTRES -------- */
     .filter-bar {
         display: flex;
         gap: 10px;
@@ -50,7 +49,6 @@
     .active.paid    { background: #16A34A !important; }
     .active.done    { background: #7C3AED !important; }
 
-    /* -------- COMMANDES -------- */
     .order-card {
         background: white;
         padding: 20px;
@@ -64,7 +62,6 @@
         font-size: 1.6rem;
     }
 
-    /* BOUTONS DE STATUT */
     .status-row {
         display: flex;
         flex-wrap: wrap;
@@ -86,7 +83,6 @@
     .active-paid   { background: #16A34A; color: white; }
     .active-done   { background: #7C3AED; color: white; }
 
-    /* Footer bouton terminer */
     .order-footer {
         display: flex;
         justify-content: flex-end;
@@ -115,7 +111,6 @@
 
 <h1>📋 Commandes – CaféMisu × We Padel</h1>
 
-<!-- FILTRES -->
 <div class="filter-bar">
     <button class="filter-btn active all" onclick="setFilter('all')">Toutes</button>
     <button class="filter-btn new" onclick="setFilter('new')">Nouvelle commande</button>
@@ -127,7 +122,6 @@
 <div id="orders"></div>
 
 <script>
-/* ---------------------- CONFIG FIREBASE ---------------------- */
 const firebaseConfig = {
     apiKey: "AIzaSyDb7QDl0VF5vhQahUaua5z2EzYQovdt9Y",
     authDomain: "cafemisu-wepadel.firebaseapp.com",
@@ -140,97 +134,14 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-/* ---------------------- FILTRES ---------------------- */
 let currentFilter = "all";
 
 function setFilter(f) {
     currentFilter = f;
-
     document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
-    document.querySelector(`.filter-btn.${f}`)?.classList.add("active");
-
+    document.querySelector(`.filter-btn.${f}`).classList.add("active");
     loadOrders();
 }
 
-/* ---------------------- CHARGEMENT FIRESTORE ---------------------- */
-
 function loadOrders() {
-    db.collection("orders")
-      .orderBy("timestamp", "asc")
-      .onSnapshot(snapshot => {
-        
-        let html = "";
-        snapshot.forEach(doc => {
-            const d = doc.data();
-            d.id = doc.id;
-
-            // Filtre
-            if (currentFilter !== "all" && d.status !== currentFilter)
-                return;
-
-            html += generateOrderCard(d);
-        });
-
-        document.getElementById("orders").innerHTML = html;
-      });
-}
-
-/* ---------------------- CARD COMMANDE ---------------------- */
-
-function generateOrderCard(d) {
-    return `
-    <div class="order-card">
-        <h2>Table ${d.table}</h2>
-
-        <div class="status-row">
-
-            <button class="status-btn ${d.status==='new' ? 'active-new':''}"
-                onclick="updateStatus('${d.id}','new')">
-                Nouvelle commande
-            </button>
-
-            <button class="status-btn ${d.status==='served' ? 'active-served':''}"
-                onclick="updateStatus('${d.id}','served')">
-                Servi
-            </button>
-
-            <button class="status-btn ${d.status==='paid' ? 'active-paid':''}"
-                onclick="updateStatus('${d.id}','paid')">
-                Payé
-            </button>
-
-            <button class="status-btn ${d.status==='done' ? 'active-done':''}"
-                onclick="updateStatus('${d.id}','done')">
-                Terminé
-            </button>
-        </div>
-
-        <ul>
-            ${d.items.map(i => `<li>${i.name} — ${i.price.toLocaleString()} FCFA</li>`).join("")}
-        </ul>
-
-        <p><i>Client :</i> ${d.customer || "—"}</p>
-        <p><i>Reçu :</i> ${d.time}</p>
-
-        <div class="order-footer">
-            <button class="btn-end" onclick="finishOrder('${d.id}')">Terminer</button>
-        </div>
-    </div>
-    `;
-}
-
-/* ---------------------- ACTIONS ---------------------- */
-function updateStatus(id, status) {
-    db.collection("orders").doc(id).update({ status });
-}
-
-function finishOrder(id) {
-    db.collection("orders").doc(id).update({ status: "done" });
-}
-
-/* ---------------------- INIT ---------------------- */
-loadOrders();
-</script>
-
-</body>
-</html>
+    db.c
