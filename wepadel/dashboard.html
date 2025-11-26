@@ -5,11 +5,11 @@
 <title>Dashboard – CaféMisu × We Padel</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Firebase compat (OBLIGATOIRE pour utiliser firebase.firestore()) -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
 
-<!-- Export libs -->
+<!-- Export libraries -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -21,11 +21,30 @@
         padding: 20px;
         color: #5D3A2C;
     }
-    h1 { text-align:center; }
 
-    .filter-bar { display:flex; gap:10px; justify-content:center; margin-bottom:20px; }
-    .filter-btn { padding:10px 16px; border:none; border-radius:8px; cursor:pointer; }
-    .active { background:#5D3A2C; color:white; }
+    h1 { text-align:center; margin-bottom:25px; }
+
+    /* Barres */
+    .filter-bar {
+        display:flex;
+        gap:10px;
+        justify-content:center;
+        margin-bottom:20px;
+    }
+
+    .filter-btn {
+        padding:10px 18px;
+        border:none;
+        border-radius:8px;
+        cursor:pointer;
+        font-size:15px;
+        background:#E5D8CF;
+        color:#5D3A2C;
+    }
+    .active {
+        background:#5D3A2C !important;
+        color:white !important;
+    }
 
     #export-bar {
         display:flex;
@@ -33,12 +52,51 @@
         gap:10px;
         margin-bottom:20px;
     }
+
+    /* Cartes */
     .order-card {
-        background:white; padding:18px; margin-bottom:20px;
-        border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.1);
+        background:white;
+        padding:20px;
+        margin-bottom:20px;
+        border-radius:12px;
+        box-shadow:0 4px 10px rgba(0,0,0,0.1);
     }
-    .order-footer { display:flex; justify-content:flex-end; margin-top:10px; }
-    .btn-end { padding:10px 16px; border:none; background:#7C3AED; color:white; border-radius:8px; cursor:pointer; }
+
+    /* Badge de statut */
+    .badge {
+        display:inline-block;
+        padding:6px 12px;
+        border-radius:20px;
+        font-size:14px;
+        color:white;
+        margin-bottom:10px;
+    }
+    .badge-new    { background:#A87555; }   /* brun */
+    .badge-served { background:#3B82F6; }   /* bleu */
+    .badge-paid   { background:#EAB308; }   /* jaune */
+    .badge-done   { background:#22C55E; }   /* vert */
+
+    /* Boutons action */
+    .btn-actions {
+        display:flex;
+        gap:6px;
+        flex-wrap:wrap;
+        margin-top:15px;
+    }
+
+    .action-btn {
+        padding:8px 14px;
+        border:none;
+        border-radius:8px;
+        cursor:pointer;
+        color:white;
+        font-size:14px;
+    }
+
+    .btn-new    { background:#A87555; }
+    .btn-served { background:#3B82F6; }
+    .btn-paid   { background:#EAB308; color:black; }
+    .btn-done   { background:#22C55E; }
 </style>
 </head>
 
@@ -71,10 +129,11 @@ const firebaseConfig = {
     messagingSenderId: "158465399626",
     appId: "1:158465399626:web:382a8671ca9b32b3aba4273"
 };
+
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-/* -------------- FILTRE -------------- */
+/* FILTRES */
 let currentFilter = "active";
 
 function setFilter(f) {
@@ -84,67 +143,74 @@ function setFilter(f) {
     loadOrders();
 }
 
-/* -------------- CHARGEMENT COMMANDES -------------- */
+/* CHARGEMENT COMMANDES */
 function loadOrders() {
     db.collection("orders")
       .orderBy("timestamp", "desc")
       .onSnapshot(snap => {
         let html = "";
-        const allOrders = [];
+        const all = [];
 
         snap.forEach(doc => {
-            const d = doc.data();
-            d.id = doc.id;
+            const o = doc.data();
+            o.id = doc.id;
+            all.push(o);
 
-            allOrders.push(d);
+            if (currentFilter === "active" && o.status === "done") return;
+            if (currentFilter === "done" && o.status !== "done") return;
 
-            if (currentFilter === "active" && d.status === "done") return;
-            if (currentFilter === "done" && d.status !== "done") return;
-
-            html += generateCard(d);
+            html += generateCard(o);
         });
 
-        window._exportData = allOrders; 
+        window._exportData = all;
         document.getElementById("orders").innerHTML = html;
-      }, err => console.error("🔥 Firestore error:", err));
+      });
 }
 
-/* -------------- GENERATION CARTE -------------- */
-function generateCard(d) {
+/* CARTE DE COMMANDE */
+function generateCard(o) {
+    const badge =
+        o.status === "new"    ? `<span class="badge badge-new">🟫 new</span>` :
+        o.status === "served" ? `<span class="badge badge-served">🟦 served</span>` :
+        o.status === "paid"   ? `<span class="badge badge-paid">🟨 paid</span>` :
+                                `<span class="badge badge-done">🟩 done</span>`;
+
     return `
     <div class="order-card">
-        <h2>Table ${d.table}</h2>
+        <h2>Table ${o.table}</h2>
 
-        <p><b>Status :</b> ${d.status}</p>
+        ${badge}
 
         <ul>
-            ${d.items.map(i => `<li>${i.name} — ${i.price} FCFA</li>`).join("")}
+            ${o.items.map(i => `<li>${i.name} — ${i.price} FCFA</li>`).join("")}
         </ul>
 
-        <p><b>Client :</b> ${d.customer}</p>
-        <p><b>Heure :</b> ${d.time}</p>
+        <p><b>Client :</b> ${o.customer}</p>
+        <p><b>Heure :</b> ${o.time}</p>
 
-        <div class="order-footer">
-            <button class="btn-end" onclick="finishOrder('${d.id}')">Terminer</button>
+        <div class="btn-actions">
+            <button class="action-btn btn-new" onclick="updateStatus('${o.id}','new')">new</button>
+            <button class="action-btn btn-served" onclick="updateStatus('${o.id}','served')">served</button>
+            <button class="action-btn btn-paid" onclick="updateStatus('${o.id}','paid')">paid</button>
+            <button class="action-btn btn-done" onclick="updateStatus('${o.id}','done')">Terminer</button>
         </div>
     </div>`;
 }
 
-/* -------------- ACTION FINIR ---------------- */
-function finishOrder(id) {
-    db.collection("orders").doc(id).update({ status: "done" });
+/* MISE À JOUR STATUT */
+function updateStatus(id, status) {
+    db.collection("orders").doc(id).update({ status });
 }
 
-/* ---------- EXPORT XLS ---------- */
+/* EXPORT XLS */
 function exportXLS() {
-    const rows = window._exportData || [];
-    const ws = XLSX.utils.json_to_sheet(rows);
+    const ws = XLSX.utils.json_to_sheet(window._exportData || []);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Commandes");
     XLSX.writeFile(wb, "commandes.xlsx");
 }
 
-/* ---------- EXPORT PDF ---------- */
+/* EXPORT PDF */
 function exportPDF() {
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF();
