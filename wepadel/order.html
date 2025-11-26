@@ -139,7 +139,8 @@
     <label>Nom (optionnel)</label>
     <input type="text" id="client-name" placeholder="Votre nom">
 
-    <button id="confirm-btn" onclick="sendOrder()">Envoyer la commande</button>
+    <!-- IMPORTANT : pas de onclick ici -->
+    <button id="confirm-btn">Envoyer la commande</button>
 </div>
 
 <script type="module">
@@ -159,11 +160,8 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // ---------------------------------------
     // MENU COMPLET CAFÉMISU
-    // ---------------------------------------
     const menuItems = [
-
         { category: "Les frappés", name: "Latté Frappé", price: 4500 },
         { category: "Les frappés", name: "Matcha Frappé", price: 5500 },
         { category: "Les frappés", name: "Caramel Frappé", price: 5500 },
@@ -223,9 +221,7 @@
     const menuDiv = document.getElementById("menu");
     let cart = [];
 
-    // ---------------------------------------
     // AFFICHAGE DU MENU
-    // ---------------------------------------
     function renderMenu() {
         let currentCategory = "";
         menuItems.forEach((item, index) => {
@@ -245,22 +241,18 @@
     }
     renderMenu();
 
-    // Ajouter au panier
     window.addToCart = function(index) {
         cart.push(menuItems[index]);
         document.getElementById("cart-count").textContent =
             cart.length + " article(s)";
     };
 
-    // Ouvrir checkout
     window.openCheckout = function() {
         document.getElementById("checkout").style.display = "block";
         window.scrollTo(0, document.body.scrollHeight);
     };
 
-    // ---------------------------------------
     // ENVOI DE LA COMMANDE (VERSION FIXÉE)
-    // ---------------------------------------
     function sendOrderHandler() {
         const table = document.getElementById("table-number").value;
 
@@ -286,7 +278,12 @@
         });
     }
 
-    // Fonction accessible au bouton HTML
+    // Bouton → fonction
+    document
+        .getElementById("confirm-btn")
+        .addEventListener("click", sendOrderHandler);
+
+    // Compatible mobile (Appel par window)
     window.sendOrder = sendOrderHandler;
 
 </script>
