@@ -5,7 +5,7 @@
 <title>Dashboard – CaféMisu × We Padel</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Firebase SDK (CDN, NON-MODULE) -->
+<!-- Firebase SDK (non-modules) -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
 
@@ -62,6 +62,7 @@
         display: flex;
         gap: 8px;
         margin-bottom: 15px;
+        flex-wrap: wrap;
     }
 
     .status-btn {
@@ -117,7 +118,6 @@
 
 <div id="orders"></div>
 
-<!-- FIREBASE LOGIC -->
 <script>
 /* ---------------------- CONFIG FIREBASE ---------------------- */
 const firebaseConfig = {
@@ -132,7 +132,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-/* ---------------------- LOGIQUE FILTRES ---------------------- */
+/* ---------------------- FILTRES ---------------------- */
 let currentFilter = "all";
 
 function setFilter(f) {
@@ -147,13 +147,17 @@ function setFilter(f) {
 /* ---------------------- LECTURE FIRESTORE ---------------------- */
 function loadOrders() {
     db.collection("orders")
-      .orderBy("timestamp", "asc")
+      .orderBy("createdAt", "asc")   // FIXED!
       .onSnapshot(snapshot => {
 
         let html = "";
+
         snapshot.forEach(doc => {
-            const d = doc.data();
+            let d = doc.data();
             d.id = doc.id;
+
+            // Convert old statuses
+            if (d.status === "preparing") d.status = "new";
 
             if (currentFilter !== "all" && d.status !== currentFilter)
                 return;
@@ -165,25 +169,24 @@ function loadOrders() {
       });
 }
 
-/* ---------------------- AFFICHAGE COMMANDE ---------------------- */
+/* ---------------------- GENERATE CARD ---------------------- */
 function generateOrderCard(d) {
     return `
     <div class="order-card">
 
         <h2>Table ${d.table}</h2>
 
-        <!-- STATUTS -->
         <div class="status-row">
-            <button class="status-btn ${d.status==='new'     ? 'active-new'   : ''}"
+            <button class="status-btn ${d.status==='new'? 'active-new':''}"
                 onclick="updateStatus('${d.id}','new')">Nouvelle commande</button>
 
-            <button class="status-btn ${d.status==='served'  ? 'active-served': ''}"
+            <button class="status-btn ${d.status==='served'? 'active-served':''}"
                 onclick="updateStatus('${d.id}','served')">Servi</button>
 
-            <button class="status-btn ${d.status==='paid'    ? 'active-paid'  : ''}"
+            <button class="status-btn ${d.status==='paid'? 'active-paid':''}"
                 onclick="updateStatus('${d.id}','paid')">Payé</button>
 
-            <button class="status-btn ${d.status==='done'    ? 'active-done'  : ''}"
+            <button class="status-btn ${d.status==='done'? 'active-done':''}"
                 onclick="updateStatus('${d.id}','done')">Terminé</button>
         </div>
 
@@ -192,7 +195,7 @@ function generateOrderCard(d) {
         </ul>
 
         <p><i>Client :</i> ${d.customer || "—"}</p>
-        <p><i>Reçu :</i> ${d.time}</p>
+        <p><i>Reçu :</i> ${d.createdAt || "—"}</p>
 
         <div class="order-footer">
             <button class="btn-end" onclick="finishOrder('${d.id}')">Terminer</button>
@@ -210,7 +213,7 @@ function finishOrder(id) {
     db.collection("orders").doc(id).update({ status: "done" });
 }
 
-/* ---------------------- INIT ---------------------- */
+/* ---------------------- START ---------------------- */
 loadOrders();
 </script>
 
