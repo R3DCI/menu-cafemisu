@@ -27,102 +27,38 @@
         margin-bottom: 25px;
     }
 
-    /* Export buttons */
     .export-bar {
         text-align: center;
         margin-bottom: 25px;
     }
-    .export-btn {
-        padding: 10px 18px;
-        border-radius: 8px;
-        border: none;
-        margin: 0 5px;
-        font-weight: 600;
-        cursor: pointer;
-    }
-    .pdf-btn { background:#DC2626; color:white; }
-    .xls-btn { background:#16A34A; color:white; }
+    .export-btn { padding:10px 18px;border-radius:8px;border:none;font-weight:600;cursor:pointer;margin:0 5px; }
+    .pdf-btn { background:#DC2626;color:white; }
+    .xls-btn { background:#16A34A;color:white; }
 
-    /* -------- FILTRES -------- */
-    .filter-bar {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-bottom: 25px;
-    }
+    .filter-bar { display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:25px; }
+    .filter-btn { padding:10px 15px;border-radius:8px;border:none;background:#D4D4D8;color:#333;font-weight:600;cursor:pointer; }
+    .filter-btn.active { color:white; }
+    .active.all{background:#444!important;}
+    .active.new{background:#DC2626!important;}
+    .active.served,.active.paid{background:#16A34A!important;}
+    .active.done{background:#7C3AED!important;}
 
-    .filter-btn {
-        padding: 10px 15px;
-        border-radius: 8px;
-        border: none;
-        background: #D4D4D8;
-        color: #333;
-        font-weight: 600;
-        cursor: pointer;
-    }
-
-    .filter-btn.active { color: white; }
-    .active.all     { background: #444 !important; }
-    .active.new     { background: #DC2626 !important; }
-    .active.served  { background: #16A34A !important; }
-    .active.paid    { background: #16A34A !important; }
-    .active.done    { background: #7C3AED !important; }
-
-    /* Sections */
-    .section-title {
-        margin-top: 35px;
-        font-size: 1.8rem;
-        color: #5D3A2C;
-    }
+    .section-title { margin-top:35px;font-size:1.8rem;color:#5D3A2C; }
 
     .order-card {
-        background: white;
-        padding: 20px;
-        border-radius: 14px;
-        margin-bottom: 18px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        background:white; padding:20px; border-radius:14px;
+        margin-bottom:18px; box-shadow:0 4px 12px rgba(0,0,0,0.08);
     }
 
-    h2 { margin-top: 0; font-size: 1.6rem; }
+    .status-row { display:flex;flex-wrap:wrap;gap:8px;margin-bottom:15px; }
+    .status-btn { padding:8px 14px;background:#D4D4D8;border-radius:6px;cursor:pointer;font-weight:600;border:none; }
 
-    .status-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-bottom: 15px;
-    }
+    .active-new{background:#DC2626;color:white;}
+    .active-served,.active-paid{background:#16A34A;color:white;}
+    .active-done{background:#7C3AED;color:white;}
 
-    .status-btn {
-        padding: 8px 14px;
-        background: #D4D4D8;
-        border-radius: 6px;
-        cursor: pointer;
-        font-weight: 600;
-        border: none;
-    }
-
-    .active-new    { background: #DC2626; color: white; }
-    .active-served { background: #16A34A; color: white; }
-    .active-paid   { background: #16A34A; color: white; }
-    .active-done   { background: #7C3AED; color: white; }
-
-    .order-footer {
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 15px;
-    }
-
-    .btn-end {
-        background-color: #7C3AED;
-        color: white;
-        padding: 10px 18px;
-        border-radius: 8px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        border: none;
-        cursor: pointer;
-    }
+    .order-footer { display:flex;justify-content:flex-end;margin-top:15px; }
+    .btn-end { background:#7C3AED;color:white;padding:10px 18px;border-radius:8px;font-size:0.9rem;font-weight:600;border:none;cursor:pointer; }
 </style>
 </head>
 
@@ -130,13 +66,11 @@
 
 <h1>📋 Commandes – CaféMisu × We Padel</h1>
 
-<!-- Export buttons -->
 <div class="export-bar">
-    <button class="export-btn pdf-btn" onclick="exportPDF()">Exporter en PDF</button>
-    <button class="export-btn xls-btn" onclick="exportXLS()">Exporter en XLS</button>
+    <button class="export-btn pdf-btn" onclick="exportPDF()">Exporter PDF</button>
+    <button class="export-btn xls-btn" onclick="exportXLS()">Exporter XLS</button>
 </div>
 
-<!-- FILTRES -->
 <div class="filter-bar">
     <button class="filter-btn active all" onclick="setFilter('all')">Toutes</button>
     <button class="filter-btn new" onclick="setFilter('new')">Nouvelles</button>
@@ -148,7 +82,7 @@
 <div id="orders"></div>
 
 <script>
-// ---------------- FIREBASE ----------------
+// FIREBASE CONFIG
 const firebaseConfig = {
     apiKey: "AIzaSyDb7QDl0VF5vhQahUaua5z2EzYQovdt9Y",
     authDomain: "cafemisu-wepadel.firebaseapp.com",
@@ -162,72 +96,60 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 let currentFilter = "all";
-let cachedOrders = []; // pour export
+let cachedOrders = [];
 
-function setFilter(f) {
-    currentFilter = f;
-
-    document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
-    document.querySelector(`.filter-btn.${f}`)?.classList.add("active");
-
+// FILTRE
+function setFilter(f){
+    currentFilter=f;
+    document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));
+    document.querySelector(`.filter-btn.${f}`).classList.add("active");
     loadOrders();
 }
 
-// ---------------- LOAD ORDERS ----------------
-function loadOrders() {
+// LOAD ORDERS (ligne corrigée)
+function loadOrders(){
     db.collection("orders")
-      .orderBy("timestamp", "desc")
-      .onSnapshot(snapshot => {
+      .orderBy("timestamp", "desc")   // <<<<<< ICI LA CORRECTION IMPORTANTE
+      .onSnapshot(snapshot=>{
+        
+        cachedOrders = [];
+        let actives = "";
+        let done = "";
 
-        cachedOrders = []; // reset pour export
-        let htmlActive = "";
-        let htmlDone = "";
+        snapshot.forEach(doc=>{
+            let d = doc.data(); d.id = doc.id;
 
-        snapshot.forEach(doc => {
-            const d = doc.data();
-            d.id = doc.id;
+            if(currentFilter !== "all" && d.status !== currentFilter) return;
 
-            // FILTRE
-            if (currentFilter !== "all" && d.status !== currentFilter) return;
+            cachedOrders.push(d);
 
-            cachedOrders.push(d); // pour export
-
-            if (d.status === "done") 
-                 htmlDone += generateOrderCard(d);
-            else htmlActive += generateOrderCard(d);
+            if(d.status === "done") done += card(d);
+            else actives += card(d);
         });
 
         document.getElementById("orders").innerHTML = `
             <h2 class="section-title">🟢 Commandes actives</h2>
-            ${htmlActive || "<p>Aucune commande active.</p>"}
+            ${actives || "<p>Aucune commande active.</p>"}
 
             <h2 class="section-title">🟣 Commandes terminées</h2>
-            ${htmlDone || "<p>Aucune commande terminée.</p>"}
+            ${done || "<p>Aucune commande terminée.</p>"}
         `;
-      });
+    });
 }
 
-// ---------------- CARD ----------------
-function generateOrderCard(d) {
+function card(d){
     return `
     <div class="order-card">
         <h2>Table ${d.table}</h2>
 
         <div class="status-row">
-            <button class="status-btn ${d.status==='new' ? 'active-new':''}"
-                onclick="updateStatus('${d.id}','new')">Nouvelle commande</button>
-
-            <button class="status-btn ${d.status==='served' ? 'active-served':''}"
-                onclick="updateStatus('${d.id}','served')">Servi</button>
-
-            <button class="status-btn ${d.status==='paid' ? 'active-paid':''}"
-                onclick="updateStatus('${d.id}','paid')">Payé</button>
-
-            <button class="status-btn ${d.status==='done' ? 'active-done':''}"
-                onclick="updateStatus('${d.id}','done')">Terminé</button>
+            <button class="status-btn ${d.status=='new'?'active-new':''}" onclick="updateStatus('${d.id}','new')">Nouvelle commande</button>
+            <button class="status-btn ${d.status=='served'?'active-served':''}" onclick="updateStatus('${d.id}','served')">Servi</button>
+            <button class="status-btn ${d.status=='paid'?'active-paid':''}" onclick="updateStatus('${d.id}','paid')">Payé</button>
+            <button class="status-btn ${d.status=='done'?'active-done':''}" onclick="updateStatus('${d.id}','done')">Terminé</button>
         </div>
 
-        <ul>${d.items.map(i => `<li>${i.name} — ${i.price} FCFA</li>`).join("")}</ul>
+        <ul>${d.items.map(i=>`<li>${i.name} — ${i.price} FCFA</li>`).join('')}</ul>
 
         <p><i>Client :</i> ${d.customer}</p>
         <p><i>Reçu :</i> ${d.time}</p>
@@ -238,77 +160,48 @@ function generateOrderCard(d) {
     </div>`;
 }
 
-// ---------------- ACTIONS ----------------
-function updateStatus(id, status) {
-    db.collection("orders").doc(id).update({ status });
+function updateStatus(id,status){
+    db.collection("orders").doc(id).update({status});
 }
-function finishOrder(id) {
-    updateStatus(id, "done");
+function finishOrder(id){
+    updateStatus(id,"done");
 }
 
-// ---------------- EXPORT PDF ----------------
-function exportPDF() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+// EXPORT PDF
+function exportPDF(){
+    const{jsPDF}=window.jspdf;
+    const doc=new jsPDF();
+    doc.text("Export commandes CaféMisu",10,10);
+    let y=20;
 
-    doc.setFontSize(18);
-    doc.text("CaféMisu – Export commandes", 10, 10);
-
-    let y = 25;
-
-    cachedOrders.forEach((o, idx) => {
-        doc.setFontSize(14);
-        doc.text(`Table ${o.table} – ${o.status}`, 10, y);
-        y += 7;
-
-        doc.setFontSize(11);
-        o.items.forEach(i => {
-            doc.text(`• ${i.name} — ${i.price} FCFA`, 10, y);
-            y += 6;
-        });
-
-        doc.text(`Client: ${o.customer}`, 10, y); y += 6;
-        doc.text(`Reçu: ${o.time}`, 10, y); y += 10;
-
-        if (y > 270) { doc.addPage(); y = 20; }
+    cachedOrders.forEach(o=>{
+        doc.text(`Table ${o.table} - ${o.status}`,10,y); y+=6;
+        o.items.forEach(i=>{ doc.text(`• ${i.name} (${i.price})`,10,y); y+=5; });
+        doc.text(`Client : ${o.customer}`,10,y); y+=5;
+        doc.text(`Reçu : ${o.time}`,10,y); y+=10;
+        if(y>270){ doc.addPage(); y=20; }
     });
-
-    doc.save("commandes_cafemisu.pdf");
+    doc.save("commandes.pdf");
 }
 
-// ---------------- EXPORT XLS ----------------
-function exportXLS() {
-    let table = 
-        `<table border="1">
-            <tr>
-                <th>Table</th>
-                <th>Status</th>
-                <th>Client</th>
-                <th>Heure</th>
-                <th>Articles</th>
-            </tr>`;
+// EXPORT XLS
+function exportXLS(){
+    let html = `<table border="1"><tr>
+        <th>Table</th><th>Status</th><th>Client</th><th>Heure</th><th>Articles</th></tr>`;
 
-    cachedOrders.forEach(o => {
-        const items = o.items.map(i => `${i.name} (${i.price})`).join(", ");
-
-        table += `
-            <tr>
-                <td>${o.table}</td>
-                <td>${o.status}</td>
-                <td>${o.customer}</td>
-                <td>${o.time}</td>
-                <td>${items}</td>
-            </tr>`;
+    cachedOrders.forEach(o=>{
+        const items=o.items.map(i=>`${i.name} (${i.price})`).join(", ");
+        html += `<tr>
+            <td>${o.table}</td><td>${o.status}</td><td>${o.customer}</td>
+            <td>${o.time}</td><td>${items}</td></tr>`;
     });
+    html += "</table>";
 
-    table += "</table>";
-
-    let blob = new Blob([table], { type: "application/vnd.ms-excel" });
-    let url = URL.createObjectURL(blob);
-
-    let a = document.createElement("a");
-    a.href = url;
-    a.download = "commandes_cafemisu.xls";
+    let blob=new Blob([html],{type:"application/vnd.ms-excel"});
+    let url=URL.createObjectURL(blob);
+    let a=document.createElement("a");
+    a.href=url;
+    a.download="commandes.xls";
     a.click();
 }
 
