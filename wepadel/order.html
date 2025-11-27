@@ -17,9 +17,30 @@
         line-height: 1.65;
     }
 
+    /* 🔙 Bouton retour identique au Menu Sucré */
+    .back-btn {
+        display: block;
+        width: 80%;
+        margin: 25px auto 0;
+        padding: 12px 20px;
+        text-align: center;
+        text-decoration: none;
+        border: 2px solid #A87555;
+        border-radius: 6px;
+        color: #A87555;
+        font-size: 1.1rem;
+        font-weight: 600;
+        transition: 0.25s ease;
+    }
+
+    .back-btn:hover {
+        background: rgba(168, 117, 85, 0.1);
+        transform: translateY(-3px);
+    }
+
     h1 {
         text-align: center;
-        margin-top: 38px;
+        margin-top: 25px;
         font-size: 2.4rem;
         font-weight: 700;
     }
@@ -120,6 +141,9 @@
 </head>
 
 <body>
+
+<!-- 🔙 Bouton Retour à l'accueil -->
+<a href="https://cafemisu.fr" class="back-btn">← Retour à l’accueil</a>
 
 <h1>CaféMisu × We Padel</h1>
 
