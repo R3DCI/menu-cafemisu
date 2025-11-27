@@ -16,68 +16,91 @@
 <style>
     body {
         font-family: 'Playfair Display', serif;
-        background: #F7EFEA;
+        background: #F2EBE4;
         margin: 0;
         padding: 20px;
-        color: #5D3A2C;
+        color: #3E2A21;
     }
 
-    h1 { text-align:center; margin-bottom:25px; }
+    h1 {
+        text-align: center;
+        margin-bottom: 25px;
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #3E2A21;
+    }
 
+    /* --- BARRES DE FILTRES --- */
     .filter-bar {
         display:flex;
+        flex-wrap:wrap;
         gap:10px;
         justify-content:center;
         margin-bottom:20px;
     }
 
     .filter-btn {
-        padding:10px 18px;
+        padding:12px 20px;
         border:none;
-        border-radius:8px;
+        border-radius:10px;
         cursor:pointer;
-        font-size:15px;
-        background:#E5D8CF;
-        color:#5D3A2C;
+        font-size:16px;
+        background:#E8DAD2;
+        color:#3E2A21;
+        font-weight:600;
+        transition:0.2s;
     }
 
-    .active { background:#5D3A2C !important; color:white !important; }
-
-    #export-bar {
-        display:flex; justify-content:center; gap:10px; margin-bottom:20px;
+    .filter-btn:hover {
+        background:#D8C5BA;
     }
 
+    .active {
+        background:#3E2A21 !important;
+        color:white !important;
+    }
+
+    /* --- CARTE COMMANDE STYLE POS --- */
     .order-card {
         position:relative;
         background:white;
-        padding:20px;
-        margin-bottom:20px;
-        border-radius:12px;
-        box-shadow:0 4px 10px rgba(0,0,0,0.1);
+        padding:22px;
+        margin-bottom:22px;
+        border-radius:14px;
+        box-shadow:0 6px 14px rgba(0,0,0,0.12);
+        border-left:10px solid #A87555;
+        transition:0.2s;
     }
 
-    /* Petit bouton X */
+    .order-card:hover {
+        transform:scale(1.01);
+    }
+
+    /* Fermeture (X) */
     .delete-btn {
         position:absolute;
-        top:10px;
-        right:10px;
-        background:#d9534f;
+        top:12px;
+        right:12px;
+        background:#c0392b;
         color:white;
         border:none;
         border-radius:50%;
-        width:24px;
-        height:24px;
-        font-size:14px;
+        width:26px;
+        height:26px;
+        font-size:15px;
         cursor:pointer;
+        font-weight:bold;
     }
 
+    /* Badge statut */
     .badge {
         display:inline-block;
-        padding:6px 12px;
+        padding:8px 16px;
         border-radius:20px;
         font-size:14px;
+        font-weight:600;
         color:white;
-        margin-bottom:10px;
+        margin-bottom:15px;
     }
 
     .badge-new { background:#A87555; }
@@ -85,26 +108,44 @@
     .badge-paid { background:#EAB308; color:black; }
     .badge-done { background:#22C55E; }
 
+    /* Liste items */
+    ul {
+        padding-left:20px;
+        margin-top:10px;
+        margin-bottom:20px;
+    }
+
+    li {
+        font-size:1.05rem;
+        margin-bottom:6px;
+    }
+
+    /* --- BOUTONS ACTIONS --- */
     .btn-actions {
         display:flex;
-        gap:6px;
+        gap:8px;
         flex-wrap:wrap;
-        margin-top:15px;
+        margin-top:10px;
     }
 
     .action-btn {
-        padding:8px 14px;
+        padding:12px 18px;
         border:none;
-        border-radius:8px;
+        border-radius:10px;
         cursor:pointer;
+        font-size:15px;
+        font-weight:600;
         color:white;
-        font-size:14px;
+        flex:1;
+        min-width:110px;
+        text-align:center;
     }
 
     .btn-new { background:#A87555; }
     .btn-served { background:#3B82F6; }
     .btn-paid { background:#EAB308; color:black; }
     .btn-done { background:#22C55E; }
+
 </style>
 </head>
 
@@ -114,25 +155,25 @@
 
 <!-- FILTRES -->
 <div class="filter-bar">
-    <button class="filter-btn active" onclick="setFilter('active')">Commandes actives</button>
-    <button class="filter-btn" onclick="setFilter('done')">Commandes terminées</button>
+    <button class="filter-btn active" onclick="setFilter('active')">Actives</button>
+    <button class="filter-btn" onclick="setFilter('done')">Terminées</button>
     <button class="filter-btn" onclick="setFilter('all')">Toutes</button>
 </div>
 
 <!-- DATE -->
 <div class="filter-bar">
-    <input type="date" id="dateFilter" onchange="loadOrders()" class="filter-btn" style="padding:8px 12px;">
+    <input type="date" id="dateFilter" onchange="loadOrders()" class="filter-btn" style="padding:10px 15px;">
 </div>
 
 <!-- TRI -->
 <div class="filter-bar">
-    <button class="filter-btn" onclick="toggleSort()">📅 Trier par date (asc/desc)</button>
+    <button class="filter-btn" onclick="toggleSort()">📅 Tri date (asc/desc)</button>
 </div>
 
 <!-- EXPORT -->
-<div id="export-bar">
-    <button class="filter-btn" onclick="exportXLS()">Exporter XLS</button>
-    <button class="filter-btn" onclick="exportPDF()">Exporter PDF</button>
+<div class="filter-bar">
+    <button class="filter-btn" onclick="exportXLS()">📄 Export XLS</button>
+    <button class="filter-btn" onclick="exportPDF()">🖨️ Export PDF</button>
 </div>
 
 <div id="orders"></div>
@@ -194,22 +235,23 @@ function loadOrders() {
       });
 }
 
-/* CARTE */
+/* CARTE COMMANDE */
 function generateCard(o) {
 
     const total = o.items.reduce((sum, i) => sum + i.price, 0);
 
     const badge =
-        o.status === "new"    ? `<span class="badge badge-new">🟫 new</span>` :
-        o.status === "served" ? `<span class="badge badge-served">🟦 served</span>` :
-        o.status === "paid"   ? `<span class="badge badge-paid">🟨 paid</span>` :
-                                `<span class="badge badge-done">🟩 done</span>`;
+        o.status === "new"    ? `<span class="badge badge-new">🟫 NEW</span>` :
+        o.status === "served" ? `<span class="badge badge-served">🟦 SERVED</span>` :
+        o.status === "paid"   ? `<span class="badge badge-paid">🟨 PAID</span>` :
+                                `<span class="badge badge-done">🟩 DONE</span>`;
 
     return `
     <div class="order-card">
+
         <button class="delete-btn" onclick="deleteOrder('${o.id}')">×</button>
 
-        <h2>Table ${o.table}</h2>
+        <h2>🪑 Table ${o.table}</h2>
         ${badge}
 
         <ul>
@@ -221,9 +263,9 @@ function generateCard(o) {
         <p><b>Heure :</b> ${o.time}</p>
 
         <div class="btn-actions">
-            <button class="action-btn btn-new" onclick="updateStatus('${o.id}','new')">new</button>
-            <button class="action-btn btn-served" onclick="updateStatus('${o.id}','served')">served</button>
-            <button class="action-btn btn-paid" onclick="updateStatus('${o.id}','paid')">paid</button>
+            <button class="action-btn btn-new" onclick="updateStatus('${o.id}','new')">New</button>
+            <button class="action-btn btn-served" onclick="updateStatus('${o.id}','served')">Served</button>
+            <button class="action-btn btn-paid" onclick="updateStatus('${o.id}','paid')">Paid</button>
             <button class="action-btn btn-done" onclick="updateStatus('${o.id}','done')">Terminer</button>
         </div>
     </div>`;
@@ -237,7 +279,6 @@ function updateStatus(id, status) {
 /* DELETE ORDER */
 function deleteOrder(id) {
     if (!confirm("Supprimer définitivement cette commande ?")) return;
-
     db.collection("orders").doc(id).delete();
 }
 
@@ -272,7 +313,7 @@ function exportPDF() {
     pdf.save("commandes.pdf");
 }
 
-/* TRI */
+/* TRI DATE */
 function toggleSort() {
     sortDirection = sortDirection === "desc" ? "asc" : "desc";
     loadOrders();
