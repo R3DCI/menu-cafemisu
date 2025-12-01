@@ -13,7 +13,7 @@
       font-family: 'Playfair Display', serif;
       color: #A87555;
       margin: 0;
-      padding: 20px 22px 150px;
+      padding: 22px 22px 160px;
       line-height: 1.65;
       overflow-x: hidden;
 
@@ -21,25 +21,27 @@
       background-size: 6px 6px;
     }
 
+    /* TITRE */
     h1 {
       text-align: center;
       margin-top: 22px;
-      margin-bottom: 10px;
+      margin-bottom: 14px;
       font-size: 2.8rem;
       font-weight: 700;
       color: #A87555;
       text-shadow: 0 0 8px rgba(168,117,85,0.20);
-      animation: fadeDown 0.8s ease-out;
+      animation: fadeDown 0.7s ease-out;
     }
 
     @keyframes fadeDown {
-      from { opacity: 0; transform: translateY(-12px); }
+      from { opacity: 0; transform: translateY(-10px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* BOUTON RETOUR */
     .back {
       display: inline-block;
-      margin: 10px auto 30px;
+      margin: 4px auto 26px;
       text-align: center;
       color: #A87555;
       text-decoration: none;
@@ -51,29 +53,32 @@
       border: 1px solid rgba(168,117,85,0.35);
       box-shadow: 0 4px 12px rgba(0,0,0,0.06);
       backdrop-filter: blur(2px);
-      animation: fadeDown 0.9s ease-out;
+      animation: fadeDown 0.85s ease-out;
     }
 
     .back:active { transform: scale(0.96); }
     .back:hover { background: rgba(168,117,85,0.08); }
 
+    /* TITRES DES CATÉGORIES */
     .category-title {
-      margin-top: 40px;
-      font-size: 1.7rem;
+      margin-top: 38px;
+      font-size: 1.65rem;
       font-weight: 700;
       border-bottom: 2px solid #E3D6CC;
       padding-bottom: 6px;
       opacity: 0.95;
+      letter-spacing: 0.3px;
     }
 
+    /* ITEMS */
     .item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 14px 0;
+      padding: 13px 0;
       border-bottom: 1px solid #E3D6CC;
       font-size: 1.23rem;
-      animation: itemFade 0.6s ease forwards;
+      animation: itemFade 0.55s ease forwards;
       opacity: 0;
     }
 
@@ -90,10 +95,12 @@
       opacity: 0.9;
     }
 
+    /* NOTES */
     .note {
       font-size: 1.05rem;
-      margin-top: 10px;
+      margin-top: 12px;
       opacity: 0.85;
+      text-align: center;
     }
 
   </style>
