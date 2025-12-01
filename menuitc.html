@@ -16,12 +16,10 @@
       padding: 22px 22px 160px;
       line-height: 1.65;
       overflow-x: hidden;
-
       background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
       background-size: 6px 6px;
     }
 
-    /* TITRE */
     h1 {
       text-align: center;
       margin-top: 22px;
@@ -38,7 +36,6 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* BOUTON RETOUR */
     .back {
       display: inline-block;
       margin: 4px auto 26px;
@@ -59,7 +56,6 @@
     .back:active { transform: scale(0.96); }
     .back:hover { background: rgba(168,117,85,0.08); }
 
-    /* TITRES DES CATÉGORIES */
     .category-title {
       margin-top: 38px;
       font-size: 1.65rem;
@@ -70,7 +66,6 @@
       letter-spacing: 0.3px;
     }
 
-    /* ITEMS */
     .item {
       display: flex;
       justify-content: space-between;
@@ -80,6 +75,14 @@
       font-size: 1.23rem;
       animation: itemFade 0.55s ease forwards;
       opacity: 0;
+    }
+
+    /* 🔥 Version large pour les textes longs */
+    .item.wide {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 8px;
     }
 
     @keyframes itemFade {
@@ -94,21 +97,6 @@
     .price {
       opacity: 0.9;
     }
-
-    /* NOTES LIGNES TROP LONGUES */
-    .small-text {
-      font-size: 1.07rem;
-      line-height: 1.45;
-    }
-
-    /* NOTES */
-    .note {
-      font-size: 1.05rem;
-      margin-top: 12px;
-      opacity: 0.85;
-      text-align: center;
-    }
-
   </style>
 </head>
 
@@ -124,14 +112,13 @@
   <div class="item"><span class="name">Café latté</span><span class="price">4.500 CFA</span></div>
   <div class="item"><span class="name">Matcha latté</span><span class="price">5.500 CFA</span></div> 
 
-  <!-- LIGNE LONGUE ajustée avec .small-text -->
-  <div class="item small-text">
+  <!-- 🔥 Textes longs : ligne en une seule ligne -->
+  <div class="item wide">
     <span class="name">Lait végétal (avoine, amande, soja, coco)</span>
     <span class="price">1.000 CFA</span>
   </div>
 
-  <!-- LIGNE SANS PRIX, également longue -->
-  <div class="item small-text">
+  <div class="item wide">
     <span class="name">Nos arômes : vanille, vanille 0%, caramel et noisettes</span>
   </div>
 
