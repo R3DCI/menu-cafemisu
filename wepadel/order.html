@@ -15,8 +15,10 @@
         margin: 0;
         padding: 0 20px 200px;
         line-height: 1.65;
+        overflow-x: hidden;
     }
 
+    /* 🔥 IDENTIQUE À CaféMisu */
     .back-btn {
         display: block;
         width: 80%;
@@ -82,6 +84,8 @@
         font-size: 1rem;
     }
 
+    /* ---------------- PANIER ---------------- */
+
     #cart {
         position: fixed;
         bottom: 0;
@@ -106,6 +110,8 @@
         cursor: pointer;
         font-size: 1.1rem;
     }
+
+    /* ---------------- CHECKOUT ---------------- */
 
     #checkout {
         display: none;
@@ -137,7 +143,8 @@
         margin-top: 12px;
     }
 
-    /* Popup variations lait végétal */
+    /* ---------------- POPUP VARIANTES ---------------- */
+
     #variant-overlay {
         position: fixed;
         top: 0; left: 0;
@@ -181,17 +188,20 @@
 
 <body>
 
+<!-- 🔥 BOUTON RETOUR 100% HARMONISÉ -->
 <a href="https://cafemisu.fr" class="back-btn">← Retour à l’accueil</a>
 
 <h1>CaféMisu × We Padel</h1>
 
 <div id="menu"></div>
 
+<!-- ---------------- BARRE DU BAS ---------------- -->
 <div id="cart">
     <span id="cart-count">0 article(s)</span>
     <button onclick="openCheckout()">Valider</button>
 </div>
 
+<!-- ---------------- CHECKOUT ---------------- -->
 <div id="checkout">
     <h2>Finaliser votre commande</h2>
 
@@ -204,7 +214,7 @@
     <button id="confirm-btn">Envoyer la commande</button>
 </div>
 
-<!-- Popup variations -->
+<!-- ----------- POPUP LAIT VÉGÉTAL ----------- -->
 <div id="variant-overlay">
     <div id="variant-popup">
         <h2 style="margin-top:0">Choix du lait végétal</h2>
@@ -219,6 +229,7 @@
     </div>
 </div>
 
+<!-- ---------------- FIREBASE + LOGIQUE ---------------- -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getFirestore, collection, addDoc, serverTimestamp } 
@@ -236,9 +247,7 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    const LAIT_NAMES = [
-        "Lait végétal",
-    ];
+    const LAIT_NAMES = ["Lait végétal"];
 
     const menuItems = [
         { category: "Les frappés", name: "Latté Frappé", price: 4500 },
@@ -265,7 +274,7 @@
         { category: "Boissons chaudes", name: "Cappuccino", price: 3500 },
         { category: "Boissons chaudes", name: "Lait végétal", price: 1000 },
 
-        { category: "Les spéciaux", name: "Caramel Machiatto", price: 6500 }, 
+        { category: "Les spéciaux", name: "Caramel Machiatto", price: 6500 },
         { category: "Les spéciaux", name: "Iced Chocolate", price: 5000 },
         { category: "Les spéciaux", name: "UBE Latte", price: 7000 },
         { category: "Les spéciaux", name: "Lait végétal", price: 1000 },
@@ -290,7 +299,7 @@
         { category: "Tiramisu", name: "Tiramisu Matcha", price: 5000 },
         { category: "Tiramisu", name: "Tiramisu Nutella", price: 5000 },
         { category: "Tiramisu", name: "Tiramisu Fraise", price: 5500 },
-        { category: "Tiramisu", name: "Tiramisu Spéculos", price: 5000 }, 
+        { category: "Tiramisu", name: "Tiramisu Spéculos", price: 5000 },
         { category: "Tiramisu", name: "Tiramisu Ferrero", price: 5500 },
         { category: "Tiramisu", name: "Tiramisu Bueno", price: 5500 },
         { category: "Tiramisu", name: "Tiramisu Pistache", price: 5500 },
