@@ -172,7 +172,7 @@
     /* BADGE NOUVEAU */
     .badge {
       position: absolute;
-      margin-left: 8px;
+      left: 10px;         /* FIX : meilleure stabilité */
       margin-top: -14px;
       background: #D49A6A;
       color: white;
@@ -183,13 +183,16 @@
       opacity: 0.9;
     }
 
+    /* WRAPPER BOUTON ITC — CENTRAGE FIX */
     .btn-wrapper {
       position: relative;
       width: 80%;
       margin: 18px auto 0;
+      display: flex;
+      justify-content: center;  /* FIX : recentrage */
     }
 
-    /* FIX : bouton ITC même taille que les autres */
+    /* BOUTON ITC — même taille & centré */
     .btn-wrapper a {
       margin: 16px auto;
       width: 100%;
