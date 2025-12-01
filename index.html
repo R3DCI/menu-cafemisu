@@ -152,14 +152,6 @@
       background: #C9B8AE;
     }
 
-    /* NOTES */
-    .note {
-      font-size: 0.95rem;
-      margin-top: 6px;
-      color: #A87555;
-      opacity: 0.85;
-    }
-
     /* SECTION SEPARATION */
     .section-label {
       margin-top: 30px;
@@ -169,10 +161,18 @@
       font-style: italic;
     }
 
+    /* NOTE “Sur place” etc */
+    .note {
+      font-size: 0.95rem;
+      margin-top: 6px;
+      color: #A87555;
+      opacity: 0.85;
+    }
+
     /* BADGE NOUVEAU */
     .badge {
       position: absolute;
-      left: 10px;         /* FIX : meilleure stabilité */
+      left: 10px;
       margin-top: -14px;
       background: #D49A6A;
       color: white;
@@ -183,16 +183,16 @@
       opacity: 0.9;
     }
 
-    /* WRAPPER BOUTON ITC — CENTRAGE FIX */
+    /* WRAPPER BOUTON ITC — FIX */
     .btn-wrapper {
       position: relative;
       width: 80%;
-      margin: 18px auto 0;
+      margin: 16px auto 0 !important; /* FIX POUR TAILLE IDENTIQUE */
       display: flex;
-      justify-content: center;  /* FIX : recentrage */
+      justify-content: center;
     }
 
-    /* BOUTON ITC — même taille & centré */
+    /* BOUTON ITC même taille visuelle */
     .btn-wrapper a {
       margin: 16px auto;
       width: 100%;
