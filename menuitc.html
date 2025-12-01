@@ -9,48 +9,77 @@
 
   <style>
     body {
-      background-color: #F9F5F1;
+      background: linear-gradient(180deg, #FAF7F3, #F9F5F1);
       font-family: 'Playfair Display', serif;
       color: #A87555;
       margin: 0;
-      padding: 20px 20px 200px;
+      padding: 20px 22px 150px;
       line-height: 1.65;
       overflow-x: hidden;
+
+      background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
+      background-size: 6px 6px;
     }
 
     h1 {
       text-align: center;
-      margin-top: 25px;
-      margin-bottom: 5px;
-      font-size: 2.7rem;
+      margin-top: 22px;
+      margin-bottom: 10px;
+      font-size: 2.8rem;
       font-weight: 700;
+      color: #A87555;
+      text-shadow: 0 0 8px rgba(168,117,85,0.20);
+      animation: fadeDown 0.8s ease-out;
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     .back {
-      display: block;
-      margin: 15px auto 25px;
+      display: inline-block;
+      margin: 10px auto 30px;
       text-align: center;
       color: #A87555;
       text-decoration: none;
       font-size: 1.1rem;
-      opacity: 0.8;
+      opacity: 0.85;
+      transition: 0.2s;
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(168,117,85,0.35);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      backdrop-filter: blur(2px);
+      animation: fadeDown 0.9s ease-out;
     }
 
+    .back:active { transform: scale(0.96); }
+    .back:hover { background: rgba(168,117,85,0.08); }
+
     .category-title {
-      margin-top: 35px;
+      margin-top: 40px;
       font-size: 1.7rem;
       font-weight: 700;
       border-bottom: 2px solid #E3D6CC;
       padding-bottom: 6px;
+      opacity: 0.95;
     }
 
     .item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 0;
+      padding: 14px 0;
       border-bottom: 1px solid #E3D6CC;
-      font-size: 1.2rem;
+      font-size: 1.23rem;
+      animation: itemFade 0.6s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes itemFade {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     .item span.name {
@@ -58,20 +87,21 @@
     }
 
     .price {
-      opacity: 0.85;
+      opacity: 0.9;
     }
 
     .note {
-      font-size: 1rem;
+      font-size: 1.05rem;
       margin-top: 10px;
-      opacity: 0.8;
+      opacity: 0.85;
     }
+
   </style>
 </head>
 
 <body>
 
-  <h1>Menu ITC 🏬</h1>
+  <h1>Menu ITC</h1>
 
   <a href="index.html" class="back">← Retour à l'accueil</a>
 
@@ -87,6 +117,7 @@
   <div class="item"><span class="name">Ferrero</span><span class="price">5.500 CFA</span></div>
   <div class="item"><span class="name">Oreo</span><span class="price">5.000 CFA</span></div>
   <div class="item"><span class="name">Banana Pudding</span><span class="price">5.000 CFA</span></div>
+
   <!-- LATTÉ -->
   <h2 class="category-title">Latté</h2>
 
@@ -94,6 +125,7 @@
   <div class="item"><span class="name">Matcha latté</span><span class="price">5.500 CFA</span></div>
 
   <p class="note">Lait végétal (avoine, amande, soja, coco) : +1.000 CFA</p>
+  <p class="note">Nos arômes : vanille, vanille 0%, caramel et noisettes</p>
 
 </body>
 </html>
