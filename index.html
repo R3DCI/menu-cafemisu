@@ -1,196 +1,342 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CaféMisu — Accueil</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Notre deuxième maison</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
 
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Playfair Display', serif;
-      background-color: #F9F5F1;
-      color: #A87555;
+<style>
+/* -----------------------------------------
+   BASE DESIGN
+------------------------------------------*/
+body {
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    background: #FAF8F4;
+    color: #4A3F35;
+    text-align: center;
+    overflow-x: hidden;
+}
+h1 {
+    margin: 18px 0 4px !important;
+    font-size: 2.6rem;
+    font-weight: 700;
+    text-shadow: 0 0 6px rgba(174,139,105,0.35);
+    animation: fadeDown .8s ease-out;
+}
+@keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.subtitle {
+    opacity: .75;
+    font-size: 1.05rem;
+    margin-bottom: 18px !important;
+    padding: 0 20px;
+    animation: fadeDown 1s ease-out;
+}
 
-      background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
-      background-size: 6px 6px;
+/* -----------------------------------------
+   YEARS MENU
+------------------------------------------*/
+#years-menu {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin: 34px auto 20px !important;
+    padding: 10px 0;
+    flex-wrap: wrap;
+    font-size: 1.3rem;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+}
+.year-btn {
+    cursor: pointer;
+    opacity: .55;
+    transition: .25s;
+    padding: 4px 0;
+}
+.year-btn:hover { opacity: 1; }
+.year-btn.active {
+    opacity: 1;
+    font-weight: 700;
+    color: #4A3F35;
+}
+.year-btn.active::after {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: #4A3F35;
+    margin-top: 4px;
+    border-radius: 2px;
+}
 
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      text-align: center;
-    }
+/* -----------------------------------------
+   MAIN VIDEO
+------------------------------------------*/
+.main-video {
+    width: 90%;
+    max-width: 600px;
+    border-radius: 14px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.18);
+    margin-top: 10px !important;
+    animation: fadeIn .9s ease-out;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
 
-    .container {
-      padding: 20px;
-      max-width: 380px;
-      opacity: 0;
-      transform: translateY(25px);
-      animation: fadeIn 0.8s ease forwards;
-    }
+/* -----------------------------------------
+   GALLERY TITLE
+------------------------------------------*/
+.section-title {
+    text-align: left;
+    width: 90%;
+    margin: 35px auto 18px;
+    font-size: 1.8rem;
+    font-weight: 600;
+    border-left: 4px solid #4A3F35;
+    padding-left: 10px;
+}
 
-    @keyframes fadeIn {
-      to { opacity: 1; transform: translateY(0); }
-    }
+/* -----------------------------------------
+   VISITOR CARDS GRID (sera rempli plus tard)
+------------------------------------------*/
+#gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px,1fr));
+    gap: 14px;
+    padding: 10px 20px 140px;
+}
+.item {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    opacity: 0;
+    transform: translateY(14px);
+    animation: fadeUp .7s ease forwards;
+}
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
 
-    /* --- HEADER ANIMÉ --- */
-    .header {
-      opacity: 0;
-      transform: translateY(-18px);
-      animation: headerIn 1.0s ease forwards;
-      animation-delay: 0.25s;
-    }
+/* -----------------------------------------
+   VISITOR FORM POPUP (NEW)
+------------------------------------------*/
+#visitor-popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 5000;
+    backdrop-filter: blur(6px);
+}
+#visitor-box {
+    background: #FFF8F0;
+    width: 88%;
+    max-width: 420px;
+    padding: 28px;
+    border-radius: 18px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+    animation: popIn .28s ease-out;
+}
+#visitor-box h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.7rem;
+    color: #5E4A3A;
+    font-weight: 700;
+}
+.visitor-field {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: 2px solid #E6D7C9;
+    margin-bottom: 12px;
+    font-size: 1rem;
+    background: white;
+    font-family: 'Playfair Display', serif;
+}
+#visitor-fileLabel {
+    display: block;
+    background: #E8DCCF;
+    border: 2px solid #D6C5B4;
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 12px;
+}
+#visitor-file-count {
+    text-align: center;
+    font-size: .9rem;
+    margin-bottom: 16px;
+}
+#visitor-send-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #CE9E62, #B38247);
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: 1.05rem;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+#visitor-close-btn {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #8C7157;
+    font-size: 1rem;
+    cursor: pointer;
+}
+#visitor-status {
+    margin-top: 16px;
+    text-align: center;
+    font-size: .95rem;
+    color: #B04848;
+}
+@keyframes popIn {
+    from { opacity: 0; transform: scale(.92); }
+    to   { opacity: 1; transform: scale(1); }
+}
 
-    @keyframes headerIn {
-      0%   { opacity: 0; transform: translateY(-18px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
+/* -----------------------------------------
+   FLOATING ADD BUTTON (NEW)
+------------------------------------------*/
+#visitor-floating-btn {
+    position: fixed;
+    bottom: 22px;
+    left: 22px;
+    background: #4A3F35;
+    color: white;
+    border: none;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    font-size: 2.2rem;
+    cursor: pointer;
+    box-shadow: 0 5px 16px rgba(0,0,0,0.30);
+    z-index: 3000;
+}
 
-    h1 {
-      font-size: 3.3rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      letter-spacing: 1px;
-      color: #A87555;
-    }
-
-    p.baseline {
-      font-size: 1.2rem;
-      margin-bottom: 38px;
-      opacity: 0.9;
-      line-height: 1.45;
-    }
-
-    /* BUTTONS */
-    .btn {
-      display: block;
-      padding: 16px 30px;
-      margin: 16px auto;
-      background: #A87555;
-      color: #F9F5F1;
-      border-radius: 6px;
-      font-size: 1.15rem;
-      font-weight: 600;
-      text-decoration: none;
-      width: 80%;
-      transition: 0.25s ease;
-      animation: slideUp 0.6s ease forwards;
-      opacity: 0;
-    }
-
-    .btn:nth-of-type(1) { animation-delay: 0.35s; }
-    .btn:nth-of-type(2) { animation-delay: 0.45s; }
-    .btn:nth-of-type(3) { animation-delay: 0.55s; }
-    .btn:nth-of-type(4) { animation-delay: 0.65s; }
-    .btn:nth-of-type(5) { animation-delay: 0.75s; }
-
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(12px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .btn:hover {
-      background: #8f5d45;
-      transform: translateY(-3px);
-    }
-
-    /* WHATSAPP */
-    .btn-whatsapp {
-      background: transparent;
-      border: 1.5px solid #A87555;
-      color: #A87555;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      width: 80%;
-    }
-
-    .btn-whatsapp:hover {
-      background: rgba(168,117,85,0.10);
-      transform: translateY(-3px);
-    }
-
-    .wa-icon {
-      width: 22px;
-      height: 22px;
-    }
-
-    /* DISABLED MENU */
-    .disabled-block {
-      opacity: 0.55;
-      cursor: not-allowed;
-      margin-top: 16px;
-      animation: slideUp 0.6s ease forwards;
-      animation-delay: 0.45s;
-      opacity: 0;
-    }
-
-    .disabled-block > a {
-      pointer-events: none;
-      background: #C9B8AE;
-    }
-
-    .note {
-      font-size: 0.95rem;
-      margin-top: 6px;
-      color: #A87555;
-      opacity: 0.85;
-    }
-
-  </style>
+</style>
 </head>
 
 <body>
 
-  <div class="container">
+<h1>Notre deuxième maison</h1>
+<div class="subtitle">Souvenirs, images, vidéos… organisés par année.</div>
 
-    <!-- HEADER ANIMÉ -->
-    <div class="header">
-      <h1>cafémisu</h1>
-      <p class="baseline">
-        Découvrez nos boissons & desserts<br>
-        faits avec passion.
-      </p>
+<div id="years-menu"></div>
+
+<video id="mainVideo" class="main-video" controls>
+    <source id="videoSource" src="" type="video/mp4" />
+</video>
+
+<div class="section-title">Souvenirs</div>
+<div id="gallery"></div>
+
+<!-- ====== BOUTON FLOTTANT (NOUVEAU) ====== -->
+<button id="visitor-floating-btn" onclick="openVisitorPopup()">✚</button>
+
+<!-- ====== POPUP VISITEURS (NOUVEAU) ====== -->
+<div id="visitor-popup">
+    <div id="visitor-box">
+
+        <h2>Partager un souvenir</h2>
+
+        <input id="visitor-name" class="visitor-field" placeholder="Votre prénom *" />
+
+        <textarea id="visitor-message" class="visitor-field" rows="2" placeholder="Votre message *"></textarea>
+
+        <select id="visitor-year" class="visitor-field">
+            <option disabled selected>Choisissez l'année *</option>
+            <option>2020</option><option>2021</option><option>2022</option>
+            <option>2023</option><option>2024</option><option>2025</option>
+        </select>
+
+        <label id="visitor-fileLabel" for="visitor-files">📁 Choisir des photos / vidéos</label>
+        <input type="file" id="visitor-files" accept="image/*,video/*" multiple style="display:none;" />
+
+        <div id="visitor-file-count">Aucun fichier sélectionné</div>
+
+        <button id="visitor-send-btn" onclick="sendVisitorPost()">Publier</button>
+        <button id="visitor-close-btn" onclick="closeVisitorPopup()">Annuler</button>
+
+        <div id="visitor-status"></div>
     </div>
+</div>
 
-    <!-- MENU SUCRÉ -->
-    <a href="menu.html" class="btn">🍰 Menu sucré</a>
+<!-- ===== JS VISITEURS ===== -->
+<script>
+function openVisitorPopup() {
+    document.getElementById("visitor-popup").style.display = "flex";
+}
+function closeVisitorPopup() {
+    document.getElementById("visitor-popup").style.display = "none";
+    document.getElementById("visitor-status").innerHTML = "";
+}
+document.getElementById("visitor-files").addEventListener("change", () => {
+    const files = document.getElementById("visitor-files").files;
+    document.getElementById("visitor-file-count").innerText =
+        files.length ? `${files.length} fichier(s) sélectionné(s)` : "Aucun fichier sélectionné";
+});
+async function sendVisitorPost() {
+    const name = document.getElementById("visitor-name").value.trim();
+    const message = document.getElementById("visitor-message").value.trim();
+    const year = document.getElementById("visitor-year").value.trim();
+    const files = document.getElementById("visitor-files").files;
+    const status = document.getElementById("visitor-status");
 
-    <!-- MENU SALÉ (désactivé) -->
-    <div class="disabled-block">
-      <a class="btn">🥪 Menu salé</a>
-      <p class="note">Bientôt disponible…</p>
-    </div>
+    if (!name || !message || !year) {
+        status.innerHTML = "Veuillez remplir tous les champs obligatoires.";
+        return;
+    }
+    if (!files.length) {
+        status.innerHTML = "Veuillez sélectionner au moins un fichier.";
+        return;
+    }
 
+    status.innerHTML = "Envoi en cours…";
 
+    const form = new FormData();
+    form.append("name", name);
+    form.append("message", message);
+    form.append("year", year);
+    for (let file of files) form.append("files", file);
 
-    <!-- NOUS CONTACTER -->
-    <a href="https://wa.me/2250716699999" class="btn btn-whatsapp">
-      <img class="wa-icon" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
-      Nous contacter
-    </a>
+    try {
+        const res = await fetch("/api/upload-visitors", {
+            method: "POST",
+            body: form
+        });
+        const json = await res.json();
 
-    <p class="note" style="margin-top:32px; font-size:1rem; opacity:0.75;">
-  Retrouvez-nous aussi ici :
-</p>
+        if (!json.success) {
+            status.innerHTML = "Erreur : " + json.error;
+            return;
+        }
 
-    <!-- CAFEMISU × WE PADEL -->
-    <a href="https://cafemisu.fr/wepadel/order.html" class="btn">
-      CaféMisu × We Padel
-    </a>
+        status.innerHTML = "✔ Souvenir ajouté !";
+        setTimeout(() => closeVisitorPopup(), 1200);
 
-    <!-- MENU ITC -->
-    <a href="menuitc.html" class="btn">CaféMisu × ITC </a>
-
-    <!-- SUR PLACE -->
-    <p class="note">Sur place 🏠</p>
-
-  </div>
+    } catch (err) {
+        status.innerHTML = "Erreur lors de l'envoi.";
+    }
+}
+</script>
 
 </body>
 </html>
