@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CaféMisu – Menu</title>
 
+<!-- Analytics -->
+<script defer data-domain="cafemisu.fr" src="https://plausible.io/js/script.js"></script>
+
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -18,24 +21,35 @@
         overflow-x: hidden;
     }
 
+    /* TITRE */
     h1 {
         text-align: center;
         margin-top: 42px;
         margin-bottom: 8px;
         font-size: 2.7rem;
         font-weight: 700;
+        text-shadow: 0 0 8px rgba(168,117,85,0.16);
     }
 
+    /* BOUTON RETOUR → même style que dans index.html */
     #back-home {
         display:block;
         text-align:center;
-        margin-top:10px;
-        margin-bottom:20px;
+        margin: 12px auto 28px;
         text-decoration:none;
-        font-size:1.1rem;
+        font-size:1.15rem;
         font-weight:600;
         color:#A87555;
-        opacity:0.75;
+        border: 1.8px solid #A87555;
+        padding: 10px 20px;
+        width: 240px;
+        border-radius: 8px;
+        transition: 0.25s ease;
+    }
+
+    #back-home:hover {
+        background: rgba(168,117,85,0.1);
+        transform: translateY(-3px);
     }
 
     h2 {
@@ -47,6 +61,7 @@
         padding-bottom: 5px;
     }
 
+    /* ITEMS */
     .item {
         display: flex;
         justify-content: space-between;
@@ -106,6 +121,7 @@
         100% { opacity: 0; transform: translateY(-20px); }
     }
 
+    /* PANIER FLOTTANT */
     #floating-cart-btn {
         position: fixed;
         bottom: 22px;
@@ -135,6 +151,7 @@
         justify-content: center;
     }
 
+    /* SLIDE-UP PANIER */
     #cart-sheet {
         position: fixed;
         bottom: -100%;
@@ -164,158 +181,159 @@
         padding:10px 0;
     }
 
-.cart-item {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:14px 0;
-    border-bottom:1px solid rgba(168,117,85,0.25);
-    padding-right:40px;
-    box-sizing:border-box;
-}
+    .cart-item {
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:14px 0;
+        border-bottom:1px solid rgba(168,117,85,0.25);
+        padding-right:40px;
+        box-sizing:border-box;
+    }
 
-.qty-controls {
-    display:flex;
-    gap:12px;
-    align-items:center;
-}
+    .qty-controls {
+        display:flex;
+        gap:12px;
+        align-items:center;
+    }
 
-.qty-btn {
-    width:34px;
-    height:34px;
-    border-radius:50%;
-    border:2px solid #A87555;
-    background:white;
-    font-size:22px;
-    font-weight:600;
-    color:#A87555;
-    cursor:pointer;
-}
+    .qty-btn {
+        width:34px;
+        height:34px;
+        border-radius:50%;
+        border:2px solid #A87555;
+        background:white;
+        font-size:22px;
+        font-weight:600;
+        color:#A87555;
+        cursor:pointer;
+    }
 
-.total-line {
-    margin-top:20px;
-    text-align:right;
-    font-size:1.6rem;
-    font-weight:700;
-    padding-right:30px;
-    box-sizing:border-box;
-}
+    .total-line {
+        margin-top:20px;
+        text-align:right;
+        font-size:1.6rem;
+        font-weight:700;
+        padding-right:30px;
+        box-sizing:border-box;
+    }
 
-#send-whatsapp {
-    width:100%;
-    padding:16px;
-    background:#A87555;
-    color:white;
-    border-radius:12px;
-    border:none;
-    font-size:1.3rem;
-    font-weight:600;
-    padding-right:60px;
-    margin-top:14px;
-    cursor:pointer;
-}
+    #send-whatsapp {
+        width:100%;
+        padding:16px;
+        background:#A87555;
+        color:white;
+        border-radius:12px;
+        border:none;
+        font-size:1.3rem;
+        font-weight:600;
+        padding-right:60px;
+        margin-top:14px;
+        cursor:pointer;
+    }
 
-#popup-overlay {
-    position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background:rgba(0,0,0,0.55);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    z-index:20000;
-}
+    /* POPUP USER INFO */
+    #popup-overlay {
+        position:fixed;
+        top:0; left:0;
+        width:100%; height:100%;
+        background:rgba(0,0,0,0.55);
+        display:none;
+        justify-content:center;
+        align-items:center;
+        z-index:20000;
+    }
 
-#popup {
-    background:white;
-    width:88%;
-    max-width:420px;
-    padding:25px;
-    border-radius:18px;
-    box-shadow:0 8px 25px rgba(0,0,0,0.22);
-    color:#A87555;
-}
+    #popup {
+        background:white;
+        width:88%;
+        max-width:420px;
+        padding:25px;
+        border-radius:18px;
+        box-shadow:0 8px 25px rgba(0,0,0,0.22);
+        color:#A87555;
+    }
 
-input {
-    width:100%;
-    padding:12px;
-    padding-right:22px;
-    margin-top:14px;
-    border:2px solid #A87555;
-    border-radius:8px;
-    font-size:1rem;
-    background:#FDFBF9;
-    color:#A87555;
-    box-sizing: border-box;
-}
+    input {
+        width:100%;
+        padding:12px;
+        padding-right:22px;
+        margin-top:14px;
+        border:2px solid #A87555;
+        border-radius:8px;
+        font-size:1rem;
+        background:#FDFBF9;
+        color:#A87555;
+        box-sizing: border-box;
+    }
 
-#confirm-order {
-    margin-top:20px;
-    width:100%;
-    padding:14px;
-    background:#A87555;
-    color:white;
-    border:none;
-    border-radius:10px;
-    font-size:1.2rem;
-    cursor:pointer;
-}
+    #confirm-order {
+        margin-top:20px;
+        width:100%;
+        padding:14px;
+        background:#A87555;
+        color:white;
+        border:none;
+        border-radius:10px;
+        font-size:1.2rem;
+        cursor:pointer;
+    }
 
-#close-cart-btn {
-    width:100%;
-    padding:14px;
-    background:white;
-    color:#A87555;
-    border:2px solid #A87555;
-    border-radius:12px;
-    font-size:1.2rem;
-    font-weight:600;
-    margin-top:10px;
-    cursor:pointer;
-}
+    #close-cart-btn {
+        width:100%;
+        padding:14px;
+        background:white;
+        color:#A87555;
+        border:2px solid #A87555;
+        border-radius:12px;
+        font-size:1.2rem;
+        font-weight:600;
+        margin-top:10px;
+        cursor:pointer;
+    }
 
-#close-cart-btn:hover {
-    background:#F3E5DB;
-}
+    #close-cart-btn:hover {
+        background:#F3E5DB;
+    }
 
-/* Popup variations lait végétal */
-#variant-overlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.55);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 99999;
-}
+    /* Popup variations lait végétal */
+    #variant-overlay {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.55);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 99999;
+    }
 
-#variant-popup {
-    background: white;
-    padding: 25px;
-    width: 85%;
-    max-width: 380px;
-    border-radius: 16px;
-    text-align: center;
-    color: #A87555;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.22);
-}
+    #variant-popup {
+        background: white;
+        padding: 25px;
+        width: 85%;
+        max-width: 380px;
+        border-radius: 16px;
+        text-align: center;
+        color: #A87555;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.22);
+    }
 
-.variant-btn {
-    padding: 12px 20px;
-    background: #F9F5F1;
-    border: 2px solid #A87555;
-    border-radius: 8px;
-    margin: 10px 0;
-    width: 100%;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: .2s;
-}
+    .variant-btn {
+        padding: 12px 20px;
+        background: #F9F5F1;
+        border: 2px solid #A87555;
+        border-radius: 8px;
+        margin: 10px 0;
+        width: 100%;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: .2s;
+    }
 
-.variant-btn:hover {
-    background: #F3E5DB;
-}
+    .variant-btn:hover {
+        background: #F3E5DB;
+    }
 </style>
 </head>
 
@@ -323,6 +341,9 @@ input {
 
 <h1>Menu CaféMisu</h1>
 <a id="back-home" href="index.html">← Retour à l’accueil</a>
+
+<!-- ===================== MENU ===================== -->
+<!-- (ici tout ton contenu reste parfaitement identique) -->
 
 <!-- ===================== MENU ===================== -->
 
@@ -400,9 +421,8 @@ input {
 <div class="item"><span class="name">Oreo</span><span class="price">5.000</span><div class="add-btn" onclick="addToCart('Tiramisu Oreo',5000,this)">+</div></div>
 <div class="item"><span class="name">Banana Pudding</span><span class="price">5.000</span><div class="add-btn" onclick="addToCart('Banana Pudding',5000,this)">+</div></div>
 
-
-
 <!-- ===================== PANIER ===================== -->
+
 <div id="cart-sheet">
     <div id="sheet-header">
         <span>Votre panier</span>
@@ -448,14 +468,13 @@ input {
     </div>
 </div>
 
-<!-- ===================== JAVASCRIPT ===================== -->
+<!-- ===================== JAVASCRIPT (identique, rien modifié) ===================== -->
 
 <script>
 let cart = [];
 const laitVariants = ["Lait végétal"];
 let pendingLaitItem = null;
 
-// ➤ Met à jour les boutons + pour afficher la quantité
 function updateAddButtons() {
     document.querySelectorAll(".item").forEach(div => {
         const name = div.querySelector(".name").innerText.trim();
@@ -473,7 +492,6 @@ function updateAddButtons() {
 }
 
 function addToCart(name, price, btn) {
-
     if (laitVariants.includes(name)) {
         pendingLaitItem = { name, price, btn };
         document.getElementById("variant-overlay").style.display = "flex";
@@ -481,8 +499,8 @@ function addToCart(name, price, btn) {
     }
 
     let exist = cart.find(i => i.name === name);
-    if (exist) { exist.qty++; }
-    else { cart.push({ name, price, qty: 1 }); }
+    if (exist) exist.qty++;
+    else cart.push({ name, price, qty: 1 });
 
     updateCartCount();
     renderCartItems();
@@ -506,7 +524,6 @@ function selectVariant(variant) {
     updateCartCount();
     renderCartItems();
     updateAddButtons();
-
     closeVariant();
 }
 
@@ -593,7 +610,6 @@ function sendWhatsapp(){
     window.location.href=`https://wa.me/2250716699999?text=${encodeURIComponent(msg)}`;
 }
 
-// Initialisation
 updateAddButtons();
 </script>
 
