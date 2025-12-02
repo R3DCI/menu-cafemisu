@@ -17,12 +17,12 @@
         line-height: 1.65;
     }
 
-    /* 🔥 BOUTON IDENTIQUE À menu.html */
+    /* 🔥 Bouton identique au menu sucré */
     #back-home {
         display:block;
         text-align:center;
-        margin-top:10px;
-        margin-bottom:20px;
+        margin-top:15px;
+        margin-bottom:10px;
         text-decoration:none;
         font-size:1.1rem;
         font-weight:600;
@@ -32,7 +32,7 @@
 
     h1 {
         text-align: center;
-        margin-top: 10px;
+        margin-top: 5px;
         font-size: 2.4rem;
         font-weight: 700;
     }
@@ -131,7 +131,6 @@
         margin-top: 12px;
     }
 
-    /* Popup variations lait végétal */
     #variant-overlay {
         position: fixed;
         top: 0; left: 0;
@@ -175,11 +174,12 @@
 
 <body>
 
-<!-- 🔥 BOUTON IDENTIQUE À menu.html -->
-<a href="https://cafemisu.fr/wepadel/order.html" id="back-home">← Retour à l’accueil</a>
+<!-- 🔥 Bouton identique au menu sucré -->
+<a href="/wepadel/" id="back-home">← Retour à l’accueil</a>
 
 <h1>CaféMisu × We Padel</h1>
 
+<!-- IMPORTANT : le menu doit arriver ICI -->
 <div id="menu"></div>
 
 <div id="cart">
@@ -215,8 +215,173 @@
 </div>
 
 <script type="module">
-/* 🔥 Toute la partie Firestore + logique du site NE CHANGE PAS */
-/* 🔥 Je n’ai touché qu’au bouton retour pour éviter de casser quelque chose. */
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } 
+        from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyDb7QDl0VF5vhQahUaua5z2EzYQovdt9Y",
+        authDomain: "cafemisu-wepadel.firebaseapp.com",
+        projectId: "cafemisu-wepadel",
+        storageBucket: "cafemisu-wepadel.appspot.com",
+        messagingSenderId: "158465399626",
+        appId: "1:158465399626:web:382a8671ca9b32b3aba4273"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const LAIT_NAMES = ["Lait végétal"];
+
+    const menuItems = [
+        { category: "Les frappés", name: "Latté Frappé", price: 4500 },
+        { category: "Les frappés", name: "Matcha Frappé", price: 5500 },
+        { category: "Les frappés", name: "Caramel Frappé", price: 5500 },
+        { category: "Les frappés", name: "Lait végétal", price: 1000 },
+        { category: "Les matchas", name: "Iced Matcha Latte", price: 5500 },
+        { category: "Les matchas", name: "Coconut Matcha Cloud", price: 5500 },
+        { category: "Les matchas", name: "Strawberry Matcha", price: 6500 },
+        { category: "Les matchas", name: "Mango Matcha", price: 6500 },
+        { category: "Les matchas", name: "Lait végétal", price: 1000 },
+        { category: "Les lattés", name: "Iced Americano", price: 4000 },
+        { category: "Les lattés", name: "Spanish Iced Latte", price: 5500 },
+        { category: "Les lattés", name: "Iced Coffee Latte", price: 4500 },
+        { category: "Les lattés", name: "Lait végétal", price: 1000 },
+        { category: "Boissons chaudes", name: "Café au lait", price: 3500 },
+        { category: "Boissons chaudes", name: "Thé", price: 1500 },
+        { category: "Boissons chaudes", name: "Chocolat chaud", price: 3500 },
+        { category: "Boissons chaudes", name: "Espresso", price: 1000 },
+        { category: "Boissons chaudes", name: "Americano", price: 2000 },
+        { category: "Boissons chaudes", name: "Cappuccino", price: 3500 },
+        { category: "Boissons chaudes", name: "Lait végétal", price: 1000 },
+        { category: "Les spéciaux", name: "Caramel Machiatto", price: 6500 },
+        { category: "Les spéciaux", name: "Iced Chocolate", price: 5000 },
+        { category: "Les spéciaux", name: "UBE Latte", price: 7000 },
+        { category: "Les spéciaux", name: "Lait végétal", price: 1000 },
+        { category: "Boissons gazeuses", name: "Coca", price: 1000 },
+        { category: "Boissons gazeuses", name: "Sprite", price: 1000 },
+        { category: "Boissons gazeuses", name: "Fanta", price: 1000 },
+        { category: "Boissons gazeuses", name: "Ice Tea", price: 1000 },
+        { category: "Boissons gazeuses", name: "Cody’s", price: 1000 },
+        { category: "Boissons gazeuses", name: "Redbull", price: 2000 },
+        { category: "Boissons gazeuses", name: "Perrier", price: 2000 },
+        { category: "Boissons gazeuses", name: "Eau", price: 1000 },
+        { category: "Spéciaux du weekend", name: "Tiramisu Cake Latte", price: 7000 },
+        { category: "Spéciaux du weekend", name: "Tiramisu Cake Matcha Latte", price: 7500 },
+        { category: "Spéciaux du weekend", name: "Matcha Banana Pudding", price: 7500 },
+        { category: "Spéciaux du weekend", name: "LE LATTE XXXL", price: 25000 },
+        { category: "Spéciaux du weekend", name: "LE MATCHA XXXL", price: 30000 },
+        { category: "Spéciaux du weekend", name: "Lait végétal", price: 1000 },
+        { category: "Tiramisu", name: "Tiramisu Café", price: 4000 },
+        { category: "Tiramisu", name: "Tiramisu Matcha", price: 5000 },
+        { category: "Tiramisu", name: "Tiramisu Nutella", price: 5000 },
+        { category: "Tiramisu", name: "Tiramisu Fraise", price: 5500 },
+        { category: "Tiramisu", name: "Tiramisu Spéculos", price: 5000 },
+        { category: "Tiramisu", name: "Tiramisu Ferrero", price: 5500 },
+        { category: "Tiramisu", name: "Tiramisu Bueno", price: 5500 },
+        { category: "Tiramisu", name: "Tiramisu Pistache", price: 5500 },
+        { category: "Tiramisu", name: "Tiramisu Oreo", price: 5000 }
+    ];
+
+    const menuDiv = document.getElementById("menu");
+    let cart = [];
+    let pendingIndex = null;
+
+    function renderMenu() {
+        let currentCategory = "";
+        menuItems.forEach((item, index) => {
+            if (item.category !== currentCategory) {
+                currentCategory = item.category;
+                menuDiv.innerHTML += `<h2>${currentCategory}</h2>`;
+            }
+
+            menuDiv.innerHTML += `
+                <div class="item">
+                    <div class="item-title">${item.name}</div>
+                    <div class="item-price">${item.price.toLocaleString()} FCFA</div>
+                    <button class="add" onclick="handleAdd(${index})">Ajouter</button>
+                </div>
+            `;
+        });
+    }
+    renderMenu();
+
+    window.handleAdd = function(index) {
+        const item = menuItems[index];
+
+        if (LAIT_NAMES.includes(item.name)) {
+            pendingIndex = index;
+            document.getElementById("variant-overlay").style.display = "flex";
+        } else {
+            addToCart(index);
+        }
+    };
+
+    window.selectVariant = function(variant) {
+        const base = menuItems[pendingIndex];
+        cart.push({ name: base.name + " – " + variant, price: base.price });
+
+        updateCartDisplay();
+        closeVariant();
+    };
+
+    window.closeVariant = function() {
+        document.getElementById("variant-overlay").style.display = "none";
+        pendingIndex = null;
+    };
+
+    window.addToCart = function(index) {
+        cart.push(menuItems[index]);
+        updateCartDisplay();
+    };
+
+    function updateCartDisplay() {
+        document.getElementById("cart-count").textContent =
+            cart.length + " article(s)";
+    }
+
+    window.openCheckout = function() {
+        document.getElementById("checkout").style.display = "block";
+        window.scrollTo(0, document.body.scrollHeight);
+    };
+
+    function sendOrderHandler() {
+        const table = document.getElementById("table-number").value;
+        const customer = document.getElementById("client-name").value || "—";
+
+        if (!table) {
+            alert("Veuillez entrer votre numéro de table.");
+            return;
+        }
+
+        const now = new Date();
+        const timeString =
+            now.getDate().toString().padStart(2, "0") + "/" +
+            (now.getMonth() + 1).toString().padStart(2, "0") + "/" +
+            now.getFullYear() + " " +
+            now.getHours().toString().padStart(2, "0") + ":" +
+            now.getMinutes().toString().padStart(2, "0");
+
+        addDoc(collection(db, "orders"), {
+            items: cart,
+            table: table,
+            customer: customer,
+            status: "new",
+            timestamp: serverTimestamp(),
+            time: timeString
+        })
+            .then(() => {
+                alert("Votre commande a été envoyée !");
+                window.location.href = "order.html";
+            })
+            .catch((error) => {
+                console.error("Erreur Firestore :", error);
+                alert("Une erreur est survenue. Réessayez.");
+            });
+    }
+
+    document.getElementById("confirm-btn")
+        .addEventListener("click", sendOrderHandler);
 
 </script>
 
