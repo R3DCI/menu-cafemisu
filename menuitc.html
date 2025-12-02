@@ -7,6 +7,9 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
 
+  <!-- ANALYTICS (ne casse rien, 100% safe) -->
+  <script defer data-domain="cafemisu.fr" src="https://plausible.io/js/script.js"></script>
+
   <style>
     body {
       background-color: #F9F5F1;
@@ -16,19 +19,20 @@
       padding: 0 20px 150px;
       line-height: 1.65;
       overflow-x: hidden;
+
       background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
       background-size: 6px 6px;
     }
 
-    /* TITRE PRINCIPAL */
+    /* TITRE */
     h1 {
       text-align: center;
       margin-top: 42px;
       margin-bottom: 8px;
       font-size: 2.7rem;
       font-weight: 700;
+      color: #A87555;
       animation: fadeDown 0.8s ease-out;
-      color:#A87555;
     }
 
     @keyframes fadeDown {
@@ -36,7 +40,7 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* BOUTON RETOUR — UNIFORMISÉ AVEC menu.html */
+    /* BOUTON RETOUR — identique au menu principal */
     #back-home {
         display:block;
         text-align:center;
@@ -50,11 +54,9 @@
         animation: fadeDown 0.9s ease-out;
     }
 
-    #back-home:hover {
-        opacity:1;
-    }
+    #back-home:hover { opacity: 1; }
 
-    /* TITRES DES CATÉGORIES — UNIFORMISÉS */
+    /* TITRES DE CATÉGORIE */
     .category-title {
         margin-top: 45px;
         margin-bottom: 15px;
@@ -62,20 +64,20 @@
         border-bottom: 2px solid #A87555;
         display: inline-block;
         padding-bottom: 5px;
-        color:#A87555;
+        color: #A87555;
     }
 
-    /* ITEMS — UNIFORMISÉS */
+    /* ITEMS */
     .item {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 14px 0;
       border-bottom: 1px solid rgba(168,117,85,0.25);
-      position: relative;
       font-size: 1.23rem;
-      animation:itemFade .55s ease forwards;
-      opacity:0;
+      position: relative;
+      animation: itemFade .55s ease forwards;
+      opacity: 0;
     }
 
     @keyframes itemFade {
@@ -84,16 +86,26 @@
     }
 
     .name {
-        font-weight:600;
-        max-width:60%;
-        font-size:1.2rem;
+      font-weight: 600;
+      max-width: 60%;
+      font-size: 1.2rem;
+      line-height: 1.35;
     }
 
     .price {
-        font-size:1.2rem;
-        opacity:0.85;
+      font-size: 1.2rem;
+      opacity: 0.85;
+      white-space: nowrap;
     }
 
+    /* Bloc ‘arômes’ spécial : jamais sur 2 lignes */
+    .sub-note {
+      font-size: 1.1rem;
+      opacity: 0.85;
+      padding: 10px 0 6px;
+      line-height: 1.5;
+      max-width: 100%;
+    }
   </style>
 </head>
 
@@ -108,7 +120,10 @@
   <div class="item"><span class="name">Café latté</span><span class="price">4.500 CFA</span></div>
   <div class="item"><span class="name">Matcha latté</span><span class="price">5.500 CFA</span></div>
   <div class="item"><span class="name">Lait végétal</span><span class="price">+1.000 CFA</span></div>
-  <div class="item"><span class="name">Arômes : vanille, vanille 0%, caramel, noisettes</span></div>
+
+  <div class="sub-note">
+    Arômes : vanille, vanille 0%, caramel, noisettes
+  </div>
 
   <!-- ===================== TIRAMISU ===================== -->
   <h2 class="category-title">Tiramisu</h2>
